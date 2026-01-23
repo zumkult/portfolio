@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio | Parallel Scroll</title>
+    <style>
+        body { margin: 0; display: flex; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; }
+        .column { width: 50%; height: 100vh; overflow-y: scroll; box-sizing: border-box; }
+        .column::-webkit-scrollbar { width: 0; } /* Прячем скроллбар */
+
+        .item { width: 100%; position: relative; line-height: 0; }
+        .item img { width: 100%; height: auto; display: block; transition: opacity 0.3s; }
+        .item:hover img { opacity: 0.7; }
+        
+        /* Стили для ссылок внутри колонок */
+        .item a { display: block; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div id="left" class="column">
+        <div class="item"><a href="projects/project1.html"><img src="images/work1.jpg"></a></div>
+        <div class="item"><a href="projects/project2.html"><img src="images/work2.jpg"></a></div>
+        <div class="item"><a href="projects/project3.html"><img src="images/work3.jpg"></a></div>
+        <div class="item"><a href="projects/project4.html"><img src="images/work4.jpg"></a></div>
+        <div class="item"><a href="projects/project5.html"><img src="images/work5.jpg"></a></div>
+        <div class="item"><a href="projects/project6.html"><img src="images/work6.jpg"></a></div>
+        <div class="item"><a href="projects/project7.html"><img src="images/work7.jpg"></a></div>
+    </div>
+
+    <div id="right" class="column">
+        <div class="item"><a href="projects/project7.html"><img src="images/work14.jpg"></a></div>
+        <div class="item"><a href="projects/project6.html"><img src="images/work13.jpg"></a></div>
+        <div class="item"><a href="projects/project5.html"><img src="images/work12.jpg"></a></div>
+        <div class="item"><a href="projects/project4.html"><img src="images/work11.jpg"></a></div>
+        <div class="item"><a href="projects/project3.html"><img src="images/work10.jpg"></a></div>
+        <div class="item"><a href="projects/project2.html"><img src="images/work9.jpg"></a></div>
+        <div class="item"><a href="projects/project1.html"><img src="images/work8.jpg"></a></div>
+    </div>
+
+    <script>
+        const left = document.getElementById('left');
+        const right = document.getElementById('right');
+
+        function syncReverse() {
+            const maxScroll = left.scrollHeight - left.clientHeight;
+            right.scrollTop = maxScroll - left.scrollTop;
+        }
+
+        left.onscroll = syncReverse;
+        // Устанавливаем правую колонку в конец при старте
+        window.onload = () => { right.scrollTop = right.scrollHeight; };
+    </script>
+</body>
+</html>
