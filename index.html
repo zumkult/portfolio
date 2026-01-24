@@ -2,42 +2,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio | Parallel Scroll</title>
+    <title>Portfolio | Lisa Voronov</title>
     <style>
-        /* Подключение вашего шрифта */
         @font-face {
             font-family: 'PP Neue Montreal';
-            src: url('PPNeueMontreal-Regular.woff2.ttf') format('ttf'); /* Убедитесь, что имя файла совпадает */
+            src: url('PPNeueMontreal-Regular.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
         }
 
         body { 
             margin: 0; 
-            display: flex; 
-            height: 100vh; 
-            overflow: hidden; 
             background: #0D0D0D; 
             font-family: 'PP Neue Montreal', sans-serif; 
             color: #ffffff;
+            overflow-x: hidden; /* Убираем горизонтальный скролл */
         }
 
         /* Приветственный экран */
         #intro {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
             height: 100vh;
-            background: #0D0D0D;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10;
             text-align: center;
-            /* Плавное исчезновение при скролле */
-            transition: opacity 0.5s ease, visibility 0.5s;
+            position: relative;
+            background: #0D0D0D;
+            z-index: 2;
         }
 
         #intro h1 {
@@ -47,13 +40,11 @@
             letter-spacing: 0.02em;
         }
 
-        /* Анимированная стрелочка */
         .arrow {
             position: absolute;
             bottom: 40px;
             font-size: 24px;
             animation: bounce 2s infinite;
-            opacity: 0.6;
         }
 
         @keyframes bounce {
@@ -62,13 +53,18 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* Колонки */
+        /* Контейнер для колонок */
+        .main-container {
+            display: flex;
+            height: 100vh; /* Колонки занимают экран */
+            width: 100%;
+        }
+
         .column { 
             width: 50%; 
             height: 100vh; 
             overflow-y: scroll; 
             box-sizing: border-box; 
-            padding-top: 100vh; /* Отступ сверху, чтобы контент начинался ПОСЛЕ первого экрана */
         }
 
         .column::-webkit-scrollbar { width: 0; } 
@@ -91,51 +87,52 @@
         <div class="arrow">↓</div>
     </div>
 
-    <div id="left" class="column">
-        <div class="item"><img src="work1.jpg"></div>
-        <div class="item"><img src="work3.jpg"></div>
-        <div class="item"><img src="work5.jpg"></div>
-        <div class="item"><img src="work7.jpg"></div>
-        <div class="item"><img src="work9.jpg"></div>
-        <div class="item"><img src="work11.jpg"></div>
-        <div class="item"><img src="work13.jpg"></div>
-    </div>
+    <div class="main-container">
+        <div id="left" class="column">
+            <div class="item"><img src="work1.jpg"></div>
+            <div class="item"><img src="work3.jpg"></div>
+            <div class="item"><img src="work5.jpg"></div>
+            <div class="item"><img src="work7.jpg"></div>
+            <div class="item"><img src="work9.jpg"></div>
+            <div class="item"><img src="work11.jpg"></div>
+            <div class="item"><img src="work13.jpg"></div>
+        </div>
 
-    <div id="right" class="column">
-        <div class="item"><img src="work14.jpg"></div>
-        <div class="item"><img src="work12.jpg"></div>
-        <div class="item"><img src="work10.jpg"></div>
-        <div class="item"><img src="work8.jpg"></div>
-        <div class="item"><img src="work6.jpg"></div>
-        <div class="item"><img src="work4.jpg"></div>
-        <div class="item"><img src="work2.jpg"></div>
+        <div id="right" class="column">
+            <div class="item"><img src="work14.jpg"></div>
+            <div class="item"><img src="work12.jpg"></div>
+            <div class="item"><img src="work10.jpg"></div>
+            <div class="item"><img src="work8.jpg"></div>
+            <div class="item"><img src="work6.jpg"></div>
+            <div class="item"><img src="work4.jpg"></div>
+            <div class="item"><img src="work2.jpg"></div>
+        </div>
     </div>
 
     <script>
         const left = document.getElementById('left');
         const right = document.getElementById('right');
-        const intro = document.getElementById('intro');
 
-        // Синхронизация и скрытие интро при скролле
-        left.onscroll = () => {
-            const maxScroll = left.scrollHeight - left.clientHeight;
-            right.scrollTop = maxScroll - left.scrollTop;
+        // Функция синхронизации
+        function syncScroll(source, target, reverse = false) {
+            const maxSource = source.scrollHeight - source.clientHeight;
+            const maxTarget = target.scrollHeight - target.clientHeight;
+            const percentage = source.scrollTop / maxSource;
 
-            // Если проскроллили немного вниз, скрываем интро
-            if (left.scrollTop > 50) {
-                intro.style.opacity = '0';
-                intro.style.visibility = 'hidden';
+            if (reverse) {
+                target.scrollTop = maxTarget - (percentage * maxTarget);
             } else {
-                intro.style.opacity = '1';
-                intro.style.visibility = 'visible';
+                target.scrollTop = percentage * maxTarget;
             }
-        };
+        }
 
-        // Начальная позиция
+        left.onscroll = () => syncScroll(left, right, true);
+        // Если хотите, чтобы правая тоже управляла левой:
+        // right.onscroll = () => syncScroll(right, left, true);
+
         window.onload = () => {
-            setTimeout(() => {
-                right.scrollTop = right.scrollHeight;
-            }, 100);
+            // Устанавливаем правую колонку вниз
+            right.scrollTop = right.scrollHeight;
         };
     </script>
 </body>
