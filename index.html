@@ -2,128 +2,88 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio | Lisa Voronov</title>
+    <title>Portfolio | Parallel Scroll</title>
     <style>
-        @font-face {
-            font-family: 'PP Neue Montreal';
-            src: url('PPNeueMontreal-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        /* Убираем все ограничения на прокрутку у body */
-        html, body { 
+        body { 
             margin: 0; 
-            padding: 0;
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
             background: #0D0D0D; 
-            font-family: 'PP Neue Montreal', sans-serif; 
-            color: #ffffff;
-            height: auto;
-            overflow-x: hidden;
-        }
-
-        /* Первый экран */
-        #intro {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: #0D0D0D;
-        }
-
-        #intro h1 {
-            font-size: 24px;
-            font-weight: normal;
-            line-height: 1.4;
-            letter-spacing: 0.02em;
-            margin: 0;
-        }
-
-        .arrow {
-            margin-top: 40px;
-            font-size: 24px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* Контейнер для работ */
-        .main-container {
-            display: flex;
-            height: 200vh; /* Увеличиваем высоту контейнера для возможности общего скролла */
-            width: 100%;
-            position: relative;
+            font-family: sans-serif; 
         }
 
         .column { 
             width: 50%; 
-            position: relative;
+            height: 100vh; 
+            overflow-y: scroll; 
+            box-sizing: border-box; 
         }
 
-        /* Ограничиваем высоту видимой области картинок */
+        /* Прячем полосу прокрутки */
+        .column::-webkit-scrollbar { width: 0; } 
+
+        .item { 
+            width: 100%; 
+            position: relative; 
+            line-height: 0; 
+        }
+
         .item img { 
             width: 100%; 
-            height: 80vh; 
+            height: 80vh; /* Высота карточки */
             object-fit: cover; 
             display: block; 
             transition: opacity 0.3s; 
         }
 
-        .item:hover img { opacity: 0.8; }
+        .item:hover img { opacity: 0.7; }
+        .item a { display: block; width: 100%; }
     </style>
 </head>
 <body>
 
-    <div id="intro">
-        <h1>designer<br>lisa voronov</h1>
-        <div class="arrow">↓</div>
+    <div id="left" class="column">
+        <div class="item"><img src="work1.png"></div>
+        <div class="item"><img src="work3.png"></div>
+        <div class="item"><img src="work5.png"></div>
+        <div class="item"><img src="work7.png"></div>
+        <div class="item"><img src="work9.png"></div>
+        <div class="item"><img src="work11.png"></div>
+        <div class="item"><img src="work13.png"></div>
+        <div class="item"><img src="work15.png"></div>
     </div>
 
-    <div class="main-container">
-        <div id="left" class="column">
-            <div class="item"><img src="work1.jpg"></div>
-            <div class="item"><img src="work3.jpg"></div>
-            <div class="item"><img src="work5.jpg"></div>
-            <div class="item"><img src="work7.jpg"></div>
-            <div class="item"><img src="work9.jpg"></div>
-            <div class="item"><img src="work11.jpg"></div>
-            <div class="item"><img src="work13.jpg"></div>
-        </div>
-
-        <div id="right" class="column">
-            <div class="item"><img src="work14.jpg"></div>
-            <div class="item"><img src="work12.jpg"></div>
-            <div class="item"><img src="work10.jpg"></div>
-            <div class="item"><img src="work8.jpg"></div>
-            <div class="item"><img src="work6.jpg"></div>
-            <div class="item"><img src="work4.jpg"></div>
-            <div class="item"><img src="work2.jpg"></div>
-        </div>
+    <div id="right" class="column">
+        <div class="item"><img src="work16.png"></div>
+        <div class="item"><img src="work14.png"></div>
+        <div class="item"><img src="work12.png"></div>
+        <div class="item"><img src="work10.png"></div>
+        <div class="item"><img src="work8.png"></div>
+        <div class="item"><img src="work6.png"></div>
+        <div class="item"><img src="work4.png"></div>
+        <div class="item"><img src="work2.png"></div>
     </div>
 
     <script>
-        // Скрипт для создания эффекта параллакса при общем скролле страницы
-        window.onscroll = () => {
-            const scrolled = window.scrollY;
-            const viewportHeight = window.innerHeight;
+        const left = document.getElementById('left');
+        const right = document.getElementById('right');
 
-            // Начинаем двигать колонки только когда проскроллили Intro
-            if (scrolled > 0) {
-                const leftCol = document.getElementById('left');
-                const rightCol = document.getElementById('right');
-                
-                // Левая колонка идет обычно, правая — навстречу (параллакс эффект)
-                // Коэффициент 0.5 создает приятную скорость
-                rightCol.style.transform = `translateY(${scrolled * 0.2}px)`;
-                leftCol.style.transform = `translateY(-${scrolled * 0.2}px)`;
-            }
+        // Функция синхронизации
+        function sync() {
+            const maxScroll = left.scrollHeight - left.clientHeight;
+            // Реверсивный скролл: правая колонка повторяет движения левой наоборот
+            right.scrollTop = maxScroll - left.scrollTop;
+        }
+
+        left.onscroll = sync;
+
+        // При загрузке страницы ставим правую колонку в самый низ,
+        // чтобы work2 оказалась напротив work1
+        window.onload = () => {
+            setTimeout(() => {
+                right.scrollTop = right.scrollHeight;
+            }, 100);
         };
     </script>
 </body>
