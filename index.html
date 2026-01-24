@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Portfolio | Parallel Scroll</title>
+    <title>Portfolio | Lisa Voronov</title>
     <style>
         body { 
             margin: 0; 
@@ -18,32 +18,34 @@
             height: 100vh; 
             overflow-y: scroll; 
             box-sizing: border-box;
-            /* Включаем примагничивание скролла */
+            /* Включаем Snap только для левой (ведущей) колонки */
             scroll-snap-type: y mandatory; 
         }
 
-        /* Прячем полосу прокрутки */
+        /* Полностью отключаем возможность крутить правую колонку мышкой или тачпадом */
+        #right {
+            pointer-events: none;
+            scroll-snap-type: none; /* Убираем снап тут, чтобы он не спорил с левым */
+        }
+
         .column::-webkit-scrollbar { width: 0; } 
 
         .item { 
             width: 100%; 
-            height: 100vh; /* Теперь каждый блок занимает ровно весь экран */
+            height: 100vh; 
             display: flex;
-            align-items: center; /* Центрируем фото по вертикали внутри блока */
+            align-items: center;
             justify-content: center;
-            scroll-snap-align: start; /* Точка застывания — начало блока */
-            position: relative;
+            scroll-snap-align: start;
         }
 
         .item img { 
             width: 100%; 
-            height: 80vh; /* Сама картинка чуть меньше экрана для «воздуха» */
+            height: 80vh; 
             object-fit: cover; 
             display: block; 
             transition: opacity 0.3s; 
         }
-
-        .item:hover img { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -74,22 +76,27 @@
         const left = document.getElementById('left');
         const right = document.getElementById('right');
 
-        // Переменная для предотвращения конфликта скроллов
-        let isScrolling = false;
+        // Используем requestAnimationFrame для максимально плавной и точной синхронизации
+        function sync() {
+            const maxScrollLeft = left.scrollHeight - left.clientHeight;
+            const maxScrollRight = right.scrollHeight - right.clientHeight;
+            
+            // Вычисляем процент прокрутки левой колонки
+            const scrollPercentage = left.scrollTop / maxScrollLeft;
+            
+            // Применяем реверс к правой колонке
+            right.scrollTop = maxScrollRight - (scrollPercentage * maxScrollRight);
+            
+            requestAnimationFrame(sync);
+        }
 
-        left.onscroll = () => {
-            if (!isScrolling) {
-                isScrolling = true;
-                const maxScroll = left.scrollHeight - left.clientHeight;
-                // Реверсивная синхронизация
-                right.scrollTop = maxScroll - left.scrollTop;
-                isScrolling = false;
-            }
-        };
+        // Запускаем постоянную проверку синхронизации
+        requestAnimationFrame(sync);
 
         window.onload = () => {
-            // Устанавливаем правую колонку вниз к work2
-            right.scrollTop = right.scrollHeight;
+            // Начальная установка
+            const maxScrollRight = right.scrollHeight - right.clientHeight;
+            right.scrollTop = maxScrollRight;
         };
     </script>
 </body>
