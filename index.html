@@ -4,13 +4,47 @@
     <meta charset="UTF-8">
     <title>Portfolio | Parallel Scroll</title>
     <style>
-        body { margin: 0; display: flex; height: 100vh; overflow: hidden; background: #000; font-family: sans-serif; }
-        .column { width: 50%; height: 100vh; overflow-y: scroll; box-sizing: border-box; }
+        /* Общие настройки страницы */
+        body { 
+            margin: 0; 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+            background: #000; 
+            font-family: sans-serif; 
+        }
+
+        /* Настройки колонок */
+        .column { 
+            width: 50%; 
+            height: 100vh; 
+            overflow-y: scroll; 
+            box-sizing: border-box; 
+        }
+
+        /* Прячем полосу прокрутки */
         .column::-webkit-scrollbar { width: 0; } 
 
-        .item { width: 100%; position: relative; line-height: 0; }
-        .item img { width: 100%; height: auto; display: block; transition: opacity 0.3s; }
-        .item:hover img { opacity: 0.7; }
+        /* Настройки контейнера картинки */
+        .item { 
+            width: 100%; 
+            position: relative; 
+            line-height: 0; 
+            margin-bottom: 0; /* Установите, например, 20px, если хотите отступы между фото */
+        }
+
+        /* Делаем все картинки одного размера */
+        .item img { 
+            width: 100%; 
+            height: 70vh; /* Все картинки будут занимать 70% высоты экрана */
+            object-fit: cover; /* Картинки будут красиво обрезаться под размер, а не растягиваться */
+            display: block; 
+            transition: opacity 0.3s; 
+        }
+
+        .item:hover img { 
+            opacity: 0.7; 
+        }
         
         .item a { display: block; width: 100%; }
     </style>
@@ -41,38 +75,36 @@
         const left = document.getElementById('left');
         const right = document.getElementById('right');
 
-        function syncReverse() {
-            const maxScroll = left.scrollHeight - left.clientHeight;
-            right.scrollTop = maxScroll - left.scrollTop;
-        }
+        // Флаг, чтобы избежать бесконечного цикла обновлений при синхронизации
+        let isScrolling = false;
 
-        left.onscroll = syncReverse;
-        window.onload = () => { 
-            // Небольшая задержка, чтобы браузер успел отрисовать картинки
+        // Синхронизация при скролле левой колонки
+        left.onscroll = () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                const maxScroll = left.scrollHeight - left.clientHeight;
+                right.scrollTop = maxScroll - left.scrollTop;
+                isScrolling = false;
+            }
+        };
+
+        // Синхронизация при скролле правой колонки
+        right.onscroll = () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                const maxScroll = right.scrollHeight - right.clientHeight;
+                left.scrollTop = maxScroll - right.scrollTop;
+                isScrolling = false;
+            }
+        };
+
+        // Установка начальной позиции после загрузки всех картинок
+        window.onload = () => {
             setTimeout(() => {
-                right.scrollTop = right.scrollHeight;
-            }, 100);
+                const maxScroll = left.scrollHeight - left.clientHeight;
+                right.scrollTop = maxScroll;
+            }, 200);
         };
     </script>
 </body>
 </html>
-const left = document.getElementById('left');
-const right = document.getElementById('right');
-
-// Функция для левой колонки
-left.onscroll = () => {
-    const maxScroll = left.scrollHeight - left.clientHeight;
-    right.scrollTop = maxScroll - left.scrollTop;
-};
-
-// Функция для правой колонки (теперь и она управляет левой)
-right.onscroll = () => {
-    const maxScroll = right.scrollHeight - right.clientHeight;
-    left.scrollTop = maxScroll - right.scrollTop;
-};
-
-window.onload = () => {
-    setTimeout(() => {
-        right.scrollTop = right.scrollHeight;
-    }, 100);
-};
