@@ -4,112 +4,138 @@
     <meta charset="UTF-8">
     <title>Portfolio | Parallel Scroll</title>
     <style>
-        /* Общие настройки страницы */
+        /* Подключение вашего шрифта */
+        @font-face {
+            font-family: 'PP Neue Montreal';
+            src: url('PPNeueMontreal-Regular.woff2') format('woff2'); /* Убедитесь, что имя файла совпадает */
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body { 
             margin: 0; 
             display: flex; 
             height: 100vh; 
             overflow: hidden; 
-            background: #000; 
-            font-family: sans-serif; 
+            background: #0D0D0D; 
+            font-family: 'PP Neue Montreal', sans-serif; 
+            color: #ffffff;
         }
 
-        /* Настройки колонок */
+        /* Приветственный экран */
+        #intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #0D0D0D;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            text-align: center;
+            /* Плавное исчезновение при скролле */
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+
+        #intro h1 {
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 1.4;
+            letter-spacing: 0.02em;
+        }
+
+        /* Анимированная стрелочка */
+        .arrow {
+            position: absolute;
+            bottom: 40px;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* Колонки */
         .column { 
             width: 50%; 
             height: 100vh; 
             overflow-y: scroll; 
             box-sizing: border-box; 
+            padding-top: 100vh; /* Отступ сверху, чтобы контент начинался ПОСЛЕ первого экрана */
         }
 
-        /* Прячем полосу прокрутки */
         .column::-webkit-scrollbar { width: 0; } 
 
-        /* Настройки контейнера картинки */
-        .item { 
-            width: 100%; 
-            position: relative; 
-            line-height: 0; 
-            margin-bottom: 0; /* Установите, например, 20px, если хотите отступы между фото */
-        }
-
-        /* Делаем все картинки одного размера */
         .item img { 
             width: 100%; 
-            height: 70vh; /* Все картинки будут занимать 70% высоты экрана */
-            object-fit: cover; /* Картинки будут красиво обрезаться под размер, а не растягиваться */
+            height: 80vh; 
+            object-fit: cover; 
             display: block; 
             transition: opacity 0.3s; 
         }
 
-        .item:hover img { 
-            opacity: 0.7; 
-        }
-        
-        .item a { display: block; width: 100%; }
+        .item:hover img { opacity: 0.8; }
     </style>
-    .item img {
-    width: 100%;
-    height: 1500px; /* Установите нужную вам высоту */
-    object-fit: cover; /* Это самое важное: картинка заполнит блок, не растягиваясь */
-    display: block;
-}
 </head>
 <body>
 
-  <div id="left" class="column">
-        <div class="item"><a href="project1.html"><img src="work1.jpg"></a></div>
-        <div class="item"><a href="project2.html"><img src="work3.jpg"></a></div>
-        <div class="item"><a href="project3.html"><img src="work5.jpg"></a></div>
-        <div class="item"><a href="project4.html"><img src="work7.jpg"></a></div>
-        <div class="item"><a href="project5.html"><img src="work9.jpg"></a></div>
-        <div class="item"><a href="project6.html"><img src="work11.jpg"></a></div>
-        <div class="item"><a href="project7.html"><img src="work13.jpg"></a></div>
+    <div id="intro">
+        <h1>designer<br>lisa voronov</h1>
+        <div class="arrow">↓</div>
+    </div>
+
+    <div id="left" class="column">
+        <div class="item"><img src="work1.jpg"></div>
+        <div class="item"><img src="work3.jpg"></div>
+        <div class="item"><img src="work5.jpg"></div>
+        <div class="item"><img src="work7.jpg"></div>
+        <div class="item"><img src="work9.jpg"></div>
+        <div class="item"><img src="work11.jpg"></div>
+        <div class="item"><img src="work13.jpg"></div>
     </div>
 
     <div id="right" class="column">
-        <div class="item"><a href="project7.html"><img src="work14.jpg"></a></div>
-        <div class="item"><a href="project6.html"><img src="work12.jpg"></a></div>
-        <div class="item"><a href="project5.html"><img src="work10.jpg"></a></div>
-        <div class="item"><a href="project4.html"><img src="work8.jpg"></a></div>
-        <div class="item"><a href="project3.html"><img src="work6.jpg"></a></div>
-        <div class="item"><a href="project2.html"><img src="work4.jpg"></a></div>
-        <div class="item"><a href="project1.html"><img src="work2.jpg"></a></div>
+        <div class="item"><img src="work14.jpg"></div>
+        <div class="item"><img src="work12.jpg"></div>
+        <div class="item"><img src="work10.jpg"></div>
+        <div class="item"><img src="work8.jpg"></div>
+        <div class="item"><img src="work6.jpg"></div>
+        <div class="item"><img src="work4.jpg"></div>
+        <div class="item"><img src="work2.jpg"></div>
     </div>
 
     <script>
         const left = document.getElementById('left');
         const right = document.getElementById('right');
+        const intro = document.getElementById('intro');
 
-        // Флаг, чтобы избежать бесконечного цикла обновлений при синхронизации
-        let isScrolling = false;
-
-        // Синхронизация при скролле левой колонки
+        // Синхронизация и скрытие интро при скролле
         left.onscroll = () => {
-            if (!isScrolling) {
-                isScrolling = true;
-                const maxScroll = left.scrollHeight - left.clientHeight;
-                right.scrollTop = maxScroll - left.scrollTop;
-                isScrolling = false;
+            const maxScroll = left.scrollHeight - left.clientHeight;
+            right.scrollTop = maxScroll - left.scrollTop;
+
+            // Если проскроллили немного вниз, скрываем интро
+            if (left.scrollTop > 50) {
+                intro.style.opacity = '0';
+                intro.style.visibility = 'hidden';
+            } else {
+                intro.style.opacity = '1';
+                intro.style.visibility = 'visible';
             }
         };
 
-        // Синхронизация при скролле правой колонки
-        right.onscroll = () => {
-            if (!isScrolling) {
-                isScrolling = true;
-                const maxScroll = right.scrollHeight - right.clientHeight;
-                left.scrollTop = maxScroll - right.scrollTop;
-                isScrolling = false;
-            }
-        };
-
-        // Установка начальной позиции после загрузки всех картинок
+        // Начальная позиция
         window.onload = () => {
             setTimeout(() => {
-                const maxScroll = left.scrollHeight - left.clientHeight;
-                right.scrollTop = maxScroll;
-            }, 200);
+                right.scrollTop = right.scrollHeight;
+            }, 100);
         };
     </script>
 </body>
