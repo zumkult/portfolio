@@ -17,7 +17,9 @@
             width: 50%; 
             height: 100vh; 
             overflow-y: scroll; 
-            box-sizing: border-box; 
+            box-sizing: border-box;
+            /* Включаем примагничивание скролла */
+            scroll-snap-type: y mandatory; 
         }
 
         /* Прячем полосу прокрутки */
@@ -25,20 +27,23 @@
 
         .item { 
             width: 100%; 
-            position: relative; 
-            line-height: 0; 
+            height: 100vh; /* Теперь каждый блок занимает ровно весь экран */
+            display: flex;
+            align-items: center; /* Центрируем фото по вертикали внутри блока */
+            justify-content: center;
+            scroll-snap-align: start; /* Точка застывания — начало блока */
+            position: relative;
         }
 
         .item img { 
             width: 100%; 
-            height: 100vh; /* Высота карточки */
+            height: 80vh; /* Сама картинка чуть меньше экрана для «воздуха» */
             object-fit: cover; 
             display: block; 
             transition: opacity 0.3s; 
         }
 
         .item:hover img { opacity: 0.7; }
-        .item a { display: block; width: 100%; }
     </style>
 </head>
 <body>
@@ -69,21 +74,22 @@
         const left = document.getElementById('left');
         const right = document.getElementById('right');
 
-        // Функция синхронизации
-        function sync() {
-            const maxScroll = left.scrollHeight - left.clientHeight;
-            // Реверсивный скролл: правая колонка повторяет движения левой наоборот
-            right.scrollTop = maxScroll - left.scrollTop;
-        }
+        // Переменная для предотвращения конфликта скроллов
+        let isScrolling = false;
 
-        left.onscroll = sync;
+        left.onscroll = () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                const maxScroll = left.scrollHeight - left.clientHeight;
+                // Реверсивная синхронизация
+                right.scrollTop = maxScroll - left.scrollTop;
+                isScrolling = false;
+            }
+        };
 
-        // При загрузке страницы ставим правую колонку в самый низ,
-        // чтобы work2 оказалась напротив work1
         window.onload = () => {
-            setTimeout(() => {
-                right.scrollTop = right.scrollHeight;
-            }, 100);
+            // Устанавливаем правую колонку вниз к work2
+            right.scrollTop = right.scrollHeight;
         };
     </script>
 </body>
