@@ -11,15 +11,18 @@
             font-style: normal;
         }
 
-        body { 
+        /* Убираем все ограничения на прокрутку у body */
+        html, body { 
             margin: 0; 
+            padding: 0;
             background: #0D0D0D; 
             font-family: 'PP Neue Montreal', sans-serif; 
             color: #ffffff;
-            overflow-x: hidden; /* Убираем горизонтальный скролл */
+            height: auto;
+            overflow-x: hidden;
         }
 
-        /* Приветственный экран */
+        /* Первый экран */
         #intro {
             height: 100vh;
             width: 100%;
@@ -28,9 +31,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
             background: #0D0D0D;
-            z-index: 2;
         }
 
         #intro h1 {
@@ -38,11 +39,11 @@
             font-weight: normal;
             line-height: 1.4;
             letter-spacing: 0.02em;
+            margin: 0;
         }
 
         .arrow {
-            position: absolute;
-            bottom: 40px;
+            margin-top: 40px;
             font-size: 24px;
             animation: bounce 2s infinite;
         }
@@ -53,22 +54,20 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* Контейнер для колонок */
+        /* Контейнер для работ */
         .main-container {
             display: flex;
-            height: 100vh; /* Колонки занимают экран */
+            height: 200vh; /* Увеличиваем высоту контейнера для возможности общего скролла */
             width: 100%;
+            position: relative;
         }
 
         .column { 
             width: 50%; 
-            height: 100vh; 
-            overflow-y: scroll; 
-            box-sizing: border-box; 
+            position: relative;
         }
 
-        .column::-webkit-scrollbar { width: 0; } 
-
+        /* Ограничиваем высоту видимой области картинок */
         .item img { 
             width: 100%; 
             height: 80vh; 
@@ -110,29 +109,21 @@
     </div>
 
     <script>
-        const left = document.getElementById('left');
-        const right = document.getElementById('right');
+        // Скрипт для создания эффекта параллакса при общем скролле страницы
+        window.onscroll = () => {
+            const scrolled = window.scrollY;
+            const viewportHeight = window.innerHeight;
 
-        // Функция синхронизации
-        function syncScroll(source, target, reverse = false) {
-            const maxSource = source.scrollHeight - source.clientHeight;
-            const maxTarget = target.scrollHeight - target.clientHeight;
-            const percentage = source.scrollTop / maxSource;
-
-            if (reverse) {
-                target.scrollTop = maxTarget - (percentage * maxTarget);
-            } else {
-                target.scrollTop = percentage * maxTarget;
+            // Начинаем двигать колонки только когда проскроллили Intro
+            if (scrolled > 0) {
+                const leftCol = document.getElementById('left');
+                const rightCol = document.getElementById('right');
+                
+                // Левая колонка идет обычно, правая — навстречу (параллакс эффект)
+                // Коэффициент 0.5 создает приятную скорость
+                rightCol.style.transform = `translateY(${scrolled * 0.2}px)`;
+                leftCol.style.transform = `translateY(-${scrolled * 0.2}px)`;
             }
-        }
-
-        left.onscroll = () => syncScroll(left, right, true);
-        // Если хотите, чтобы правая тоже управляла левой:
-        // right.onscroll = () => syncScroll(right, left, true);
-
-        window.onload = () => {
-            // Устанавливаем правую колонку вниз
-            right.scrollTop = right.scrollHeight;
         };
     </script>
 </body>
