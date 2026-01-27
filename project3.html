@@ -25,6 +25,9 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
+            /* Запрещаем скролл на всей странице */
+            overflow: hidden; 
+            height: 100vh;
         }
 
         .info-side {
@@ -94,22 +97,23 @@
             text-decoration: none;
         }
 
-        .content-side {
+        /* ПРАВАЯ ЧАСТЬ: ФИКСИРОВАННАЯ */
+        .right-side {
             width: 50%;
-            margin-left: 50%; 
+            height: 100vh;
+            margin-left: 50%; /* Смещаем вправо */
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #ffffff;
         }
 
-        .content-side img {
+        #dynamic-work {
             width: 100%;
+            height: 100vh;
+            object-fit: cover; /* Чтобы картинка заполняла всю правую часть */
             display: block;
-        }
-
-        /* Контейнер для анимации, чтобы избежать прыжков высоты */
-        .slideshow-container {
-            width: 50%;
-            line-height: 0;
         }
     </style>
 </head>
@@ -120,9 +124,9 @@
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
                 <span class="brand-name">TRENDYOL</span> is a leading Turkish e-commerce platform. As part of the collaboration, 
-              I developed printed flyers, visually structuring voluminous business information into concise, easy-to-read materials. 
-              Working under tight deadlines, I transformed complex data on the company's growth and key achievements into clear 
-              visual storytelling that highlighted the brand's value and market dynamics.
+                I developed printed flyers, visually structuring voluminous business information into concise, easy-to-read materials. 
+                Working under tight deadlines, I transformed complex data on the company's growth and key achievements into clear 
+                visual storytelling that highlighted the brand's value and market dynamics.
             </div>
         </div>
 
@@ -139,12 +143,11 @@
         </div>
     </div>
         
-        <div class="slideshow-container">
-            <img id="dynamic-work" src="work26.png">
-        </div>
+    <div class="right-side">
+        <img id="dynamic-work" src="work26.png">
+    </div>
 
     <script>
-        // Список изображений для анимации
         const images = [
             'work26.png',
             'work27.png',
@@ -157,14 +160,13 @@
         let currentIndex = 0;
         const dynamicImg = document.getElementById('dynamic-work');
 
-        // Функция смены картинки
         function changeImage() {
             currentIndex = (currentIndex + 1) % images.length;
             dynamicImg.src = images[currentIndex];
         }
 
-        // Запуск интервала: 1000мс = 1 сек
-        setInterval(changeImage, 1000);
+        // Вернул 0.5 сек (500мс) как вы просили ранее для этой анимации
+        setInterval(changeImage, 500);
     </script>
 
 </body>
