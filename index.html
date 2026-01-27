@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Portfolio | Lisa Voronov</title>
     <style>
-        /* Подключаем ваш шрифт */
         @font-face {
             font-family: 'PP Neue Montreal';
             src: url('PPNeueMontreal-Regular.woff2') format('woff2');
@@ -26,15 +25,15 @@
             height: 100vh; 
             overflow-y: scroll; 
             box-sizing: border-box;
+            /* Включаем примагничивание для обеих колонок */
             scroll-snap-type: y mandatory; 
+            -ms-overflow-style: none;  /* Скрываем скроллбар в IE/Edge */
+            scrollbar-width: none;  /* Скрываем скроллбар в Firefox */
         }
 
-        /* Убрали pointer-events: none, чтобы ссылка стала кликабельной */
-        #right {
-            scroll-snap-type: none; 
-        }
-
-        .column::-webkit-scrollbar { width: 0; } 
+        .column::-webkit-scrollbar { 
+            display: none; /* Скрываем скроллбар в Chrome/Safari */
+        } 
 
         .item { 
             width: 100%; 
@@ -50,10 +49,9 @@
             height: 100vh; 
             object-fit: cover; 
             display: block; 
-            transition: opacity 0.3s; 
+            transition: opacity 0.3s ease; 
         }
 
-        /* Добавим эффект при наведении на ссылки, чтобы было понятно, что на них можно нажать */
         .item a {
             display: block;
             width: 100%;
@@ -93,19 +91,37 @@
         const left = document.getElementById('left');
         const right = document.getElementById('right');
 
-        // Чтобы правая колонка не перехватывала скролл, но по ней можно было кликать
-        // Мы просто синхронизируем её постоянно с левой
-        function sync() {
-            const maxScrollLeft = left.scrollHeight - left.clientHeight;
-            const maxScrollRight = right.scrollHeight - right.clientHeight;
-            const scrollPercentage = left.scrollTop / maxScrollLeft;
-            
-            right.scrollTop = maxScrollRight - (scrollPercentage * maxScrollRight);
-            requestAnimationFrame(sync);
-        }
+        let isSyncingLeft = false;
+        let isSyncingRight = false;
 
-        requestAnimationFrame(sync);
+        // Синхронизация: Левая управляет Правой
+        left.onscroll = function() {
+            if (!isSyncingRight) {
+                isSyncingLeft = true;
+                const maxScrollLeft = left.scrollHeight - left.clientHeight;
+                const maxScrollRight = right.scrollHeight - right.clientHeight;
+                const scrollPercentage = left.scrollTop / maxScrollLeft;
+                
+                right.scrollTop = maxScrollRight - (scrollPercentage * maxScrollRight);
+            }
+            // Сбрасываем флаг через минимальное время
+            setTimeout(() => { isSyncingLeft = false; }, 50);
+        };
 
+        // Синхронизация: Правая управляет Левой
+        right.onscroll = function() {
+            if (!isSyncingLeft) {
+                isSyncingRight = true;
+                const maxScrollLeft = left.scrollHeight - left.clientHeight;
+                const maxScrollRight = right.scrollHeight - right.clientHeight;
+                const scrollPercentage = 1 - (right.scrollTop / maxScrollRight);
+                
+                left.scrollTop = scrollPercentage * maxScrollLeft;
+            }
+            setTimeout(() => { isSyncingRight = false; }, 50);
+        };
+
+        // Установка начальной позиции при загрузке
         window.onload = () => {
             const maxScrollRight = right.scrollHeight - right.clientHeight;
             right.scrollTop = maxScrollRight;
