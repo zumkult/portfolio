@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Simplie Hair | Lisa Voronov</title>
+    <style>
+        /* Подключение обычного шрифта */
+        @font-face {
+            font-family: 'Notbad Sans';
+            src: url('Notbad-sans-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Подключение жирного шрифта */
+        @font-face {
+            font-family: 'Notbad Sans Bold';
+            src: url('Notbad-sans-Bold.woff2') format('woff2');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        body { 
+            margin: 0; 
+            display: flex; 
+            background: #ffffff; 
+            font-family: 'Notbad Sans', sans-serif; 
+            color: #0D0D0D;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .info-side {
+            width: 50%;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            box-sizing: border-box;
+            background: #ffffff;
+            z-index: 10;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #0D0D0D;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .description {
+            font-size: 14px; 
+            line-height: 24px; 
+            max-width: 500px;
+            margin-top: 40px;
+        }
+
+        /* Стиль для жирного названия бренда */
+        .brand-name {
+            font-family: 'Notbad Sans Bold', sans-serif;
+            font-weight: bold;
+        }
+
+        .left-footer {
+            display: flex;
+            flex-direction: column;
+            /* Уменьшено в два раза (было 60px, стало 30px) */
+            gap: 30px; 
+        }
+
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .nav-arrows a {
+            text-decoration: none;
+            color: #0D0D0D;
+            transition: opacity 0.3s;
+        }
+
+        .nav-arrows a:hover {
+            opacity: 0.5;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .footer-bottom a {
+            color: #0D0D0D;
+            text-decoration: none;
+        }
+
+        .content-side {
+            width: 50%;
+            margin-left: 50%; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-side img {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="info-side">
+        <div>
+            <a href="index.html" class="back-link">← Back to portfolio</a>
+            <div class="description">
+                <span class="brand-name">SIMPLIE HAIR</span> is a brand specializing in hair extensions and professional training for stylists. 
+                As part of our collaboration, I was responsible for all of the brand's visual and print content: 
+                developing multi-page workbooks and B2B brochures, designing packaging, organizing and producing 
+                product and model photo shoots, and preparing materials for print and digital use. 
+                My work included concept development, layout, visual storytelling design, pre-press preparation, 
+                production control, and post-production of images for the website, e-commerce, and social media.
+            </div>
+        </div>
+
+        <div class="left-footer">
+            <div class="nav-arrows">
+                <a href="project16.html">‹ Previous</a>
+                <a href="project2.html">Next ›</a>
+            </div>
+
+            <div class="footer-bottom">
+                <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
+                <div class="copyright">© 2026 Lisa Voronov</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-side">
+        <img src="work17.png">
+        <img src="work18.png">
+        <img src="work19.png">
+        <img src="work20.png">
+        <img src="work21.png">
+    </div>
+
+</body>
+</html>
