@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <title>Simplie Hair | Lisa Voronov</title>
     <style>
+        /* Подключение обычного шрифта */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
             font-weight: normal;
+            font-style: normal;
+        }
+
+        /* Подключение жирного шрифта */
+        @font-face {
+            font-family: 'Notbad Sans Bold';
+            src: url('Notbad-sans-Bold.woff2') format('woff2');
+            font-weight: bold;
             font-style: normal;
         }
 
@@ -20,7 +29,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ЛЕВАЯ ЧАСТЬ: ФИКСИРОВАННАЯ */
         .info-side {
             width: 50%;
             height: 100vh;
@@ -29,7 +37,7 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределяет блоки: верх, центр, низ */
+            justify-content: space-between;
             padding: 60px;
             box-sizing: border-box;
             background: #ffffff;
@@ -44,25 +52,30 @@
             letter-spacing: 0.1em;
         }
 
-        /* Основной текст теперь такой же маленький, как футер */
         .description {
             font-size: 14px; 
-            line-height: 20px; 
+            line-height: 30px; 
             max-width: 500px;
             margin-top: 40px;
         }
 
-        /* Блок навигации и контактов внизу слева */
+        /* Стиль для жирного названия бренда */
+        .brand-name {
+            font-family: 'Notbad Sans Bold', sans-serif;
+            font-weight: bold;
+        }
+
         .left-footer {
             display: flex;
             flex-direction: column;
-            gap: 60px;
+            /* Уменьшено в два раза (было 60px, стало 30px) */
+            gap: 30px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            font-size: 14px; /* Уменьшено для соответствия стилю */
+            font-size: 14px;
         }
 
         .nav-arrows a {
@@ -87,7 +100,6 @@
             text-decoration: none;
         }
 
-        /* ПРАВАЯ ЧАСТЬ: СКРОЛЛИТСЯ */
         .content-side {
             width: 50%;
             margin-left: 50%; 
@@ -107,7 +119,7 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                SIMPLIE HAIR is a brand specializing in hair extensions and professional training for stylists. 
+                <span class="brand-name">SIMPLIE HAIR</span> is a brand specializing in hair extensions and professional training for stylists. 
                 As part of our collaboration, I was responsible for all of the brand's visual and print content: 
                 developing multi-page workbooks and B2B brochures, designing packaging, organizing and producing 
                 product and model photo shoots, and preparing materials for print and digital use. 
