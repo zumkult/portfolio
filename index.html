@@ -23,17 +23,15 @@
         .column { 
             width: 50%; 
             height: 100vh; 
-            overflow-y: scroll; 
+            overflow-y: auto; /* Возвращаем стандартный режим для плавности */
             box-sizing: border-box;
-            /* Включаем примагничивание для обеих колонок */
-            scroll-snap-type: y mandatory; 
-            -ms-overflow-style: none;  /* Скрываем скроллбар в IE/Edge */
-            scrollbar-width: none;  /* Скрываем скроллбар в Firefox */
+            /* Изменяем на proximity для более мягкого поведения */
+            scroll-snap-type: y proximity; 
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        .column::-webkit-scrollbar { 
-            display: none; /* Скрываем скроллбар в Chrome/Safari */
-        } 
+        .column::-webkit-scrollbar { display: none; } 
 
         .item { 
             width: 100%; 
@@ -58,9 +56,7 @@
             height: 100%;
         }
 
-        .item a:hover img {
-            opacity: 0.7;
-        }
+        .item a:hover img { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -91,40 +87,32 @@
         const left = document.getElementById('left');
         const right = document.getElementById('right');
 
-        let isSyncingLeft = false;
-        let isSyncingRight = false;
+        let activeColumn = null;
 
-        // Синхронизация: Левая управляет Правой
-        left.onscroll = function() {
-            if (!isSyncingRight) {
-                isSyncingLeft = true;
-                const maxScrollLeft = left.scrollHeight - left.clientHeight;
-                const maxScrollRight = right.scrollHeight - right.clientHeight;
-                const scrollPercentage = left.scrollTop / maxScrollLeft;
-                
-                right.scrollTop = maxScrollRight - (scrollPercentage * maxScrollRight);
+        // Определяем, над какой колонкой находится мышь
+        left.onmouseenter = () => activeColumn = 'left';
+        right.onmouseenter = () => activeColumn = 'right';
+
+        function handleScroll(source, target, isReverse) {
+            if (activeColumn !== source.id) return;
+
+            const maxSource = source.scrollHeight - source.clientHeight;
+            const maxTarget = target.scrollHeight - target.clientHeight;
+            const percentage = source.scrollTop / maxSource;
+
+            if (isReverse) {
+                target.scrollTop = maxTarget - (percentage * maxTarget);
+            } else {
+                target.scrollTop = (1 - percentage) * maxTarget;
             }
-            // Сбрасываем флаг через минимальное время
-            setTimeout(() => { isSyncingLeft = false; }, 50);
-        };
+        }
 
-        // Синхронизация: Правая управляет Левой
-        right.onscroll = function() {
-            if (!isSyncingLeft) {
-                isSyncingRight = true;
-                const maxScrollLeft = left.scrollHeight - left.clientHeight;
-                const maxScrollRight = right.scrollHeight - right.clientHeight;
-                const scrollPercentage = 1 - (right.scrollTop / maxScrollRight);
-                
-                left.scrollTop = scrollPercentage * maxScrollLeft;
-            }
-            setTimeout(() => { isSyncingRight = false; }, 50);
-        };
+        left.addEventListener('scroll', () => handleScroll(left, right, true));
+        right.addEventListener('scroll', () => handleScroll(right, left, false));
 
-        // Установка начальной позиции при загрузке
         window.onload = () => {
-            const maxScrollRight = right.scrollHeight - right.clientHeight;
-            right.scrollTop = maxScrollRight;
+            // Гарантируем, что правая колонка начинается с work2.png (внизу)
+            right.scrollTop = right.scrollHeight;
         };
     </script>
 </body>
