@@ -13,9 +13,11 @@
 
         body { 
             margin: 0; 
+            padding: 0;
             display: flex; 
             height: 100vh; 
-            overflow: hidden; 
+            width: 100vw;
+            overflow: hidden; /* Фиксируем окно, чтобы скроллились только колонки */
             background: #0D0D0D; 
             font-family: 'PP Neue Montreal', sans-serif; 
         }
@@ -23,15 +25,16 @@
         .column { 
             width: 50%; 
             height: 100vh; 
-            overflow-y: auto; /* Возвращаем стандартный режим для плавности */
+            overflow-y: auto; 
             box-sizing: border-box;
-            /* Изменяем на proximity для более мягкого поведения */
-            scroll-snap-type: y proximity; 
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            scroll-snap-type: y proximity; /* Мягкое примагничивание */
+            scrollbar-width: none; /* Скрываем скроллбар в Firefox */
+            -ms-overflow-style: none; /* Скрываем в IE */
         }
 
-        .column::-webkit-scrollbar { display: none; } 
+        .column::-webkit-scrollbar { 
+            display: none; /* Скрываем в Chrome/Safari */
+        } 
 
         .item { 
             width: 100%; 
@@ -56,7 +59,9 @@
             height: 100%;
         }
 
-        .item a:hover img { opacity: 0.7; }
+        .item a:hover img {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
@@ -65,7 +70,7 @@
         <div class="item"><img src="work1.png"></div>
         <div class="item"><a href="project1.html"><img src="work3.png"></a></div>
         <div class="item"><a href="project2.html"><img src="work5.png"></a></div>
-        <div class="item"><a href="project2.html"><img src="work7.png"></a></div>
+        <div class="item"><a href="project3.html"><img src="work7.png"></a></div>
         <div class="item"><img src="work9.png"></div>
         <div class="item"><img src="work11.png"></div>
         <div class="item"><img src="work13.png"></div>
@@ -77,7 +82,7 @@
         <div class="item"><img src="work14.png"></div>
         <div class="item"><img src="work12.png"></div>
         <div class="item"><img src="work10.png"></div>
-        <div class="item"><a href="project2.html"><img src="work8.png"></a></div>
+        <div class="item"><a href="project3.html"><img src="work8.png"></a></div>
         <div class="item"><a href="project2.html"><img src="work6.png"></a></div>
         <div class="item"><a href="project1.html"><img src="work4.png"></a></div>
         <div class="item"><img src="work2.png"></div>
@@ -89,29 +94,32 @@
 
         let activeColumn = null;
 
-        // Определяем, над какой колонкой находится мышь
-        left.onmouseenter = () => activeColumn = 'left';
-        right.onmouseenter = () => activeColumn = 'right';
+        // Отслеживаем, где находится мышь, чтобы избежать конфликта скроллов
+        left.onmouseenter = () => { activeColumn = 'left'; };
+        right.onmouseenter = () => { activeColumn = 'right'; };
 
-        function handleScroll(source, target, isReverse) {
+        function syncScroll(e) {
+            const source = e.target;
+            const target = (source === left) ? right : left;
+            
+            // Синхронизируем только если эта колонка "ведущая" под курсором
             if (activeColumn !== source.id) return;
 
             const maxSource = source.scrollHeight - source.clientHeight;
             const maxTarget = target.scrollHeight - target.clientHeight;
+            
+            // Расчет процента прокрутки
             const percentage = source.scrollTop / maxSource;
-
-            if (isReverse) {
-                target.scrollTop = maxTarget - (percentage * maxTarget);
-            } else {
-                target.scrollTop = (1 - percentage) * maxTarget;
-            }
+            
+            // Реверсивная прокрутка для второй колонки
+            target.scrollTop = maxTarget - (percentage * maxTarget);
         }
 
-        left.addEventListener('scroll', () => handleScroll(left, right, true));
-        right.addEventListener('scroll', () => handleScroll(right, left, false));
+        left.addEventListener('scroll', syncScroll);
+        right.addEventListener('scroll', syncScroll);
 
+        // Установка начальной позиции
         window.onload = () => {
-            // Гарантируем, что правая колонка начинается с work2.png (внизу)
             right.scrollTop = right.scrollHeight;
         };
     </script>
