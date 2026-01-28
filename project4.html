@@ -25,7 +25,6 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            /* Запрещаем скролл на всей странице */
             overflow: hidden; 
             height: 100vh;
         }
@@ -39,7 +38,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px;
+            /* 10vh сверху и снизу выравнивают текст по границе фото (которое 80vh) */
+            padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
@@ -48,14 +48,17 @@
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
-            font-size: 10px;
+            font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            display: inline-block;
+            /* Убираем лишние зазоры сверху */
+            line-height: 1;
         }
 
         .description {
-            font-size: 10px; 
-            line-height: 15px; 
+            font-size: 15px; 
+            line-height: 18px; 
             max-width: 500px;
             margin-top: 40px;
         }
@@ -68,13 +71,15 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            gap: 30px; 
+            gap: 10px; 
+            /* Убираем трансформацию, так как теперь работаем через padding контейнера */
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            font-size: 13px;
+            margin-bottom: 10px;
         }
 
         .nav-arrows a {
@@ -88,8 +93,9 @@
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            font-size: 13px;
             align-items: center;
+            line-height: 1;
         }
 
         .footer-bottom a {
@@ -97,11 +103,10 @@
             text-decoration: none;
         }
 
-        /* ПРАВАЯ ЧАСТЬ: ФИКСИРОВАННАЯ */
         .right-side {
             width: 50%;
             height: 100vh;
-            margin-left: 50%; /* Смещаем вправо */
+            margin-left: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,9 +115,10 @@
         }
 
         #dynamic-work {
-            width: 100%;
-            height: 100vh;
-            object-fit: cover; /* Чтобы картинка заполняла всю правую часть */
+            /* Фото занимает 80% высоты, центрировано — значит сверху и снизу остается по 10% */
+            width: 80%;
+            height: 80vh;
+            object-fit: contain;
             display: block;
         }
     </style>
@@ -126,7 +132,7 @@
                 <span class="brand-name">KAA by Bill Kaulitz</span> is a perfume brand. As part of the collaboration, I served as the brand's photographer, 
               responsible for the creative concept, styling, shooting, and post-production of visuals for social media. My task was to create 
               content that reinforces the brand's character and supports its recognizable visual language.
-            </div>
+</div>
         </div>
 
         <div class="left-footer">
@@ -164,8 +170,7 @@
             dynamicImg.src = images[currentIndex];
         }
 
-        // Вернул 1.5 сек
-        setInterval(changeImage, 1500);
+        setInterval(changeImage, 1000);
     </script>
 
 </body>
