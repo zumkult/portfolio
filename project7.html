@@ -25,7 +25,6 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            /* Запрещаем скролл на всей странице */
             overflow: hidden; 
             height: 100vh;
         }
@@ -45,17 +44,20 @@
             z-index: 10;
         }
 
+        /* Унифицированный размер шрифта 15px для всех текстовых элементов */
+        .back-link, .description, .nav-arrows, .footer-bottom {
+            font-size: 15px;
+        }
+
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
-            font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
 
         .description {
-            font-size: 15px; 
-            line-height: 15px; 
+            line-height: 18px; /* Межстрочный интервал 18px */
             max-width: 500px;
             margin-top: 40px;
         }
@@ -74,7 +76,6 @@
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
         }
 
         .nav-arrows a {
@@ -88,7 +89,6 @@
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            font-size: 15px;
             align-items: center;
         }
 
@@ -97,22 +97,22 @@
             text-decoration: none;
         }
 
-        /* ПРАВАЯ ЧАСТЬ: ФИКСИРОВАННАЯ */
+        /* ПРАВАЯ ЧАСТЬ */
         .right-side {
             width: 50%;
             height: 100vh;
-            margin-left: 50%; /* Смещаем вправо */
+            margin-left: 50%;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center; /* Центрирование по вертикали */
+            justify-content: center; /* Центрирование по горизонтали */
             overflow: hidden;
             background: #ffffff;
         }
 
         #dynamic-work {
-            width: 100%;
-            height: 50vh;
-            object-fit: cover; /* Чтобы картинка заполняла всю правую часть */
+            /* Размер фото анимации 60% от контейнера */
+            width: 60%; 
+            height: auto;
             display: block;
         }
     </style>
@@ -160,7 +160,6 @@
             dynamicImg.src = images[currentIndex];
         }
 
-        // Вернул 1 сек
         setInterval(changeImage, 1000);
     </script>
 
