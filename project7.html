@@ -25,12 +25,13 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
+            /* Запрещаем скролл на всей странице */
             overflow: hidden; 
             height: 100vh;
         }
 
         .info-side {
-            width: 100%;
+            width: 50%;
             height: 100vh;
             position: fixed;
             left: 0;
@@ -44,20 +45,17 @@
             z-index: 10;
         }
 
-        /* Унифицированный размер шрифта 15px для всех текстовых элементов */
-        .back-link, .description, .nav-arrows, .footer-bottom {
-            font-size: 15px;
-        }
-
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
 
         .description {
-            line-height: 18px; /* Межстрочный интервал 18px */
+            font-size: 15px; 
+            line-height: 18px; 
             max-width: 500px;
             margin-top: 40px;
         }
@@ -76,6 +74,7 @@
         .nav-arrows {
             display: flex;
             justify-content: space-between;
+            font-size: 10px;
         }
 
         .nav-arrows a {
@@ -89,6 +88,7 @@
         .footer-bottom {
             display: flex;
             justify-content: space-between;
+            font-size: 10px;
             align-items: center;
         }
 
@@ -97,22 +97,22 @@
             text-decoration: none;
         }
 
-        /* ПРАВАЯ ЧАСТЬ */
+        /* ПРАВАЯ ЧАСТЬ: ФИКСИРОВАННАЯ */
         .right-side {
-            width: 70%;
+            width: 30%;
             height: 100vh;
-            margin-left: 70%;
+            margin-left: 30%; /* Смещаем вправо */
             display: flex;
-            align-items: center; /* Центрирование по вертикали */
-            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             background: #ffffff;
         }
 
         #dynamic-work {
-            /* Размер фото анимации 100% от контейнера */
-            width: 100%; 
-            height: auto;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover; /* Чтобы картинка заполняла всю правую часть */
             display: block;
         }
     </style>
@@ -123,13 +123,7 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">Lisa Voronov</span> is me. 
-                I am a graphic designer with many years of experience in marketing, sales, and art. 
-                I work with brands and their intermediaries, specializing in graphic design, but 
-                I also create photo and video visuals. 
-                I am fluent in Adobe, combining it with Kai, Figma, and other tools. 
-                Write to me, 
-                I look forward to working with you! 
+                <span class="brand-name">Lisa Voronov</span> is me. I am a graphic designer with many years of experience in marketing, sales, and art. I work with brands and their intermediaries, specializing in graphic design, but I also create photo and video visuals. I am fluent in Adobe, combining it with Kai, Figma, and other tools. Write to me, I look forward to working with you!
             </div>
         </div>
 
