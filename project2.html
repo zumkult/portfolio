@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Iles Formula | Lisa Voronov</title>
     <style>
-        /* Подключение обычного шрифта */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -12,7 +11,6 @@
             font-style: normal;
         }
 
-        /* Подключение жирного шрифта */
         @font-face {
             font-family: 'Notbad Sans Bold';
             src: url('Notbad-sans-Bold.woff2') format('woff2');
@@ -38,28 +36,34 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px;
+            /* Отступы 10vh сверху и снизу для выравнивания по визуальной сетке */
+            padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
         }
 
+        /* Установка шрифта 15px для всех ссылок и текста */
+        .back-link, .description, .nav-arrows, .footer-bottom {
+            font-size: 15px;
+        }
+
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
-            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            line-height: 1;
         }
 
         .description {
-            font-size: 10px; 
-            line-height: 15px; 
-            max-width: 500px;
+            line-height: 18px; /* Межстрочный интервал 18px */
+            max-width: 480px;
             margin-top: 40px;
+            text-align: justify; /* Выравнивание по ширине */
+            text-align-last: left; /* Чтобы последняя строка не растягивалась */
         }
 
-        /* Стиль для жирного названия бренда */
         .brand-name {
             font-family: 'Notbad Sans Bold', sans-serif;
             font-weight: bold;
@@ -68,14 +72,13 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            /* Уменьшено в два раза (было 60px, стало 30px) */
-            gap: 30px; 
+            gap: 10px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            margin-bottom: 5px;
         }
 
         .nav-arrows a {
@@ -84,15 +87,13 @@
             transition: opacity 0.3s;
         }
 
-        .nav-arrows a:hover {
-            opacity: 0.5;
-        }
+        .nav-arrows a:hover { opacity: 0.5; }
 
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
             align-items: center;
+            line-height: 1;
         }
 
         .footer-bottom a {
@@ -105,11 +106,19 @@
             margin-left: 50%; 
             display: flex;
             flex-direction: column;
+            /* Чтобы контент справа тоже имел отступ сверху и снизу */
+            padding: 10vh 0;
+            box-sizing: border-box;
         }
 
         .content-side img {
             width: 100%;
             display: block;
+            margin-bottom: 20px; /* Небольшой зазор между фото */
+        }
+        
+        .content-side img:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -122,6 +131,7 @@
                 <span class="brand-name">Iles Formula</span> is a luxury professional hair care brand founded by stylist Wendy Iles. 
                 As part of our collaboration, I developed print and digital materials for the brand: catalog design, postcards, 
                 and promotional materials, as well as online banners and visuals for mailings and e-commerce platforms. 
+                <br><br>
                 My work included concept and visual storytelling, layout and typography, image retouching, 
                 pre-press preparation, print coordination, and approval management to ensure a consistent premium brand image
                 across all communication channels.
