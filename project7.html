@@ -116,4 +116,66 @@
         }
 
         #dynamic-work {
-            /* Фото
+            /* Фото 80% высоты центрировано = зазоры по 10% сверху и снизу */
+            width: 80%;
+            height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="info-side">
+        <div>
+            <a href="index.html" class="back-link">← Back to portfolio</a>
+            <div class="description">
+                <span class="brand-name">Lisa Voronov</span> 
+                that's me. I am a graphic designer with extensive experience in digital and print media. 
+                I work with brands and their intermediaries, creating photo and video content, 
+                visual systems, and images that align with each brand's aesthetics. 
+                For me, design is first and foremost about function and emotion, 
+                and only then about pleasing visuals. 
+                <br><br>
+                If you like my approach, I look forward to working with you!
+            </div>
+        </div>
+
+        <div class="left-footer">
+            <div class="nav-arrows">
+                <a href="project6.html">‹ Previous</a>
+                <a href="project1.html">Next ›</a>
+            </div>
+
+            <div class="footer-bottom">
+                <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
+                <div class="copyright">© 2026 Lisa Voronov</div>
+            </div>
+        </div>
+    </div>
+        
+    <div class="right-side">
+        <img id="dynamic-work" src="work49.png">
+    </div>
+
+    <script>
+        const images = [
+            'work49.png',
+            'work50.png',
+            'work51.png',
+            'work52.png',
+        ];
+
+        let currentIndex = 0;
+        const dynamicImg = document.getElementById('dynamic-work');
+
+        function changeImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            dynamicImg.src = images[currentIndex];
+        }
+
+        setInterval(changeImage, 1000);
+    </script>
+
+</body>
+</html>
