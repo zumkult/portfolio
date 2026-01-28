@@ -38,8 +38,8 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Уменьшен нижний padding, чтобы прижать футер к краю */
-            padding: 80px 80px 30px 80px;
+            /* 10vh сверху и снизу выравнивают текст по границе фото (которое 80vh) */
+            padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
@@ -51,6 +51,9 @@
             font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            display: inline-block;
+            /* Убираем лишние зазоры сверху */
+            line-height: 1;
         }
 
         .description {
@@ -69,8 +72,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px; 
-            /* Опускаем блок на 30 пикселей ниже к краю */
-            transform: translateY(20px);
+            /* Убираем трансформацию, так как теперь работаем через padding контейнера */
         }
 
         .nav-arrows {
@@ -93,6 +95,7 @@
             justify-content: space-between;
             font-size: 13px;
             align-items: center;
+            line-height: 1;
         }
 
         .footer-bottom a {
@@ -112,10 +115,9 @@
         }
 
         #dynamic-work {
-            /* Уменьшено в 1.5 раза (100 / 1.5 ≈ 66) */
+            /* Фото занимает 80% высоты, центрировано — значит сверху и снизу остается по 10% */
             width: 80%;
             height: 80vh;
-            /* Гарантирует, что фото не обрезается и видно целиком */
             object-fit: contain;
             display: block;
         }
