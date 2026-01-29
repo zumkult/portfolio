@@ -26,6 +26,7 @@
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
             overflow-y: auto; 
+            scroll-behavior: smooth; /* Плавный переход при скролле */
         }
 
         .info-side {
@@ -43,7 +44,6 @@
             z-index: 10;
         }
 
-        /* Унифицированный шрифт 15px */
         .back-link, .description, .nav-arrows, .footer-bottom {
             font-size: 15px;
         }
@@ -114,6 +114,15 @@
             width: 100%;
             display: block;
             margin-bottom: 20px;
+            /* Переносим рендеринг на GPU для исключения рывков */
+            will-change: transform;
+            /* Плавное проявление при скролле */
+            animation: fadeInScroll 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScroll {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .content-side img:last-child {
@@ -146,10 +155,10 @@
     </div>
 
     <div class="content-side">
-        <img src="work45.png">
-        <img src="work46.png">
-        <img src="work47.png">
-        <img src="work48.png">
+        <img src="work45.png" loading="eager" decoding="async">
+        <img src="work46.png" loading="lazy" decoding="async">
+        <img src="work47.png" loading="lazy" decoding="async">
+        <img src="work48.png" loading="lazy" decoding="async">
     </div>
 
 </body>
