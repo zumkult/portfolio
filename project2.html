@@ -25,6 +25,8 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
+            /* Разрешаем прокрутку, так как справа много фото */
+            overflow-y: auto; 
         }
 
         .info-side {
@@ -36,14 +38,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Отступы 10vh сверху и снизу для выравнивания по визуальной сетке */
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
         }
 
-        /* Установка шрифта 15px для всех ссылок и текста */
         .back-link, .description, .nav-arrows, .footer-bottom {
             font-size: 15px;
         }
@@ -57,11 +57,11 @@
         }
 
         .description {
-            line-height: 18px; /* Межстрочный интервал 18px */
+            line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
-            text-align: justify; /* Выравнивание по ширине */
-            text-align-last: left; /* Чтобы последняя строка не растягивалась */
+            text-align: justify;
+            text-align-last: left;
         }
 
         .brand-name {
@@ -72,13 +72,15 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            gap: 10px; 
+            /* Установлен gap 15px по вашему запросу */
+            gap: 15px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            /* Обнуляем margin, чтобы работал только gap */
+            margin-bottom: 0; 
         }
 
         .nav-arrows a {
@@ -106,7 +108,6 @@
             margin-left: 50%; 
             display: flex;
             flex-direction: column;
-            /* Чтобы контент справа тоже имел отступ сверху и снизу */
             padding: 10vh 0;
             box-sizing: border-box;
         }
@@ -114,7 +115,7 @@
         .content-side img {
             width: 100%;
             display: block;
-            margin-bottom: 20px; /* Небольшой зазор между фото */
+            margin-bottom: 20px;
         }
         
         .content-side img:last-child {
