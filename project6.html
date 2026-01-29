@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>BASLER BEAUTY | Lisa Voronov</title>
     <style>
-        /* Подключение обычного шрифта */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -12,7 +11,6 @@
             font-style: normal;
         }
 
-        /* Подключение жирного шрифта */
         @font-face {
             font-family: 'Notbad Sans Bold';
             src: url('Notbad-sans-Bold.woff2') format('woff2');
@@ -27,6 +25,7 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
+            overflow-y: auto; 
         }
 
         .info-side {
@@ -38,28 +37,33 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px;
+            padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
         }
 
+        /* Унифицированный шрифт 15px */
+        .back-link, .description, .nav-arrows, .footer-bottom {
+            font-size: 15px;
+        }
+
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
-            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            line-height: 1;
         }
 
         .description {
-            font-size: 10px; 
-            line-height: 15px; 
-            max-width: 500px;
+            line-height: 18px; 
+            max-width: 480px;
             margin-top: 40px;
+            text-align: justify;
+            text-align-last: left;
         }
 
-        /* Стиль для жирного названия бренда */
         .brand-name {
             font-family: 'Notbad Sans Bold', sans-serif;
             font-weight: bold;
@@ -68,14 +72,13 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            /* Уменьшено в два раза (было 60px, стало 30px) */
-            gap: 30px; 
+            gap: 15px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            margin-bottom: 0; 
         }
 
         .nav-arrows a {
@@ -84,15 +87,13 @@
             transition: opacity 0.3s;
         }
 
-        .nav-arrows a:hover {
-            opacity: 0.5;
-        }
+        .nav-arrows a:hover { opacity: 0.5; }
 
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
             align-items: center;
+            line-height: 1;
         }
 
         .footer-bottom a {
@@ -105,11 +106,18 @@
             margin-left: 50%; 
             display: flex;
             flex-direction: column;
+            padding: 10vh 0;
+            box-sizing: border-box;
         }
 
         .content-side img {
             width: 100%;
             display: block;
+            margin-bottom: 20px;
+        }
+
+        .content-side img:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -119,7 +127,7 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">BASLER BEAUTY</span> is a brand
+                <span class="brand-name">BASLER BEAUTY</span> is a brand.
             </div>
         </div>
 
