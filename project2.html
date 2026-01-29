@@ -25,8 +25,8 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            /* Разрешаем прокрутку, так как справа много фото */
             overflow-y: auto; 
+            scroll-behavior: smooth; /* Делает скролл по ссылкам плавным */
         }
 
         .info-side {
@@ -72,14 +72,12 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            /* Установлен gap 15px по вашему запросу */
             gap: 15px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            /* Обнуляем margin, чтобы работал только gap */
             margin-bottom: 0; 
         }
 
@@ -116,8 +114,17 @@
             width: 100%;
             display: block;
             margin-bottom: 20px;
+            /* Оптимизация для плавного скролла */
+            will-change: transform;
+            /* Мягкое появление */
+            animation: fadeIn 0.6s ease-in-out;
         }
-        
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .content-side img:last-child {
             margin-bottom: 0;
         }
@@ -152,10 +159,10 @@
     </div>
 
     <div class="content-side">
-        <img src="work22.png">
-        <img src="work23.png">
-        <img src="work24.png">
-        <img src="work25.png">
+        <img src="work22.png" loading="eager" decoding="async">
+        <img src="work23.png" loading="lazy" decoding="async">
+        <img src="work24.png" loading="lazy" decoding="async">
+        <img src="work25.png" loading="lazy" decoding="async">
     </div>
 
 </body>
