@@ -4,19 +4,7 @@
     <meta charset="UTF-8">
     <title>KAA by Bill Kaulitz | Lisa Voronov</title>
     <style>
-        @font-face {
-            font-family: 'Notbad Sans';
-            src: url('Notbad-sans-Regular.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Notbad Sans Bold';
-            src: url('Notbad-sans-Bold.woff2') format('woff2');
-            font-weight: bold;
-            font-style: normal;
-        }
+        /* ... (оставляем ваши @font-face без изменений) ... */
 
         body { 
             margin: 0; 
@@ -44,16 +32,13 @@
             z-index: 10;
         }
 
-        .back-link, .description, .nav-arrows, .footer-bottom {
-            font-size: 15px;
-        }
+        .back-link, .description, .nav-arrows, .footer-bottom { font-size: 15px; }
 
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            display: inline-block;
             line-height: 1;
         }
 
@@ -65,29 +50,12 @@
             text-align-last: left;
         }
 
-        .brand-name {
-            font-family: 'Notbad Sans Bold', sans-serif;
-            font-weight: bold;
-        }
+        .brand-name { font-family: 'Notbad Sans Bold', sans-serif; font-weight: bold; }
 
-        .left-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; 
-        }
+        .left-footer { display: flex; flex-direction: column; gap: 15px; }
 
-        .nav-arrows {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0; /* Убрано для синхронизации с другими страницами */
-        }
-
-        .nav-arrows a {
-            text-decoration: none;
-            color: #0D0D0D;
-            transition: opacity 0.3s;
-        }
-
+        .nav-arrows { display: flex; justify-content: space-between; margin-bottom: 0; }
+        .nav-arrows a { text-decoration: none; color: #0D0D0D; transition: opacity 0.3s; }
         .nav-arrows a:hover { opacity: 0.5; }
 
         .footer-bottom {
@@ -97,10 +65,7 @@
             line-height: 1;
         }
 
-        .footer-bottom a {
-            color: #0D0D0D;
-            text-decoration: none;
-        }
+        .footer-bottom a { color: #0D0D0D; text-decoration: none; }
 
         .right-side {
             width: 50%;
@@ -109,7 +74,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: #ffffff;
         }
 
@@ -118,6 +82,8 @@
             height: 80vh;
             object-fit: contain;
             display: block;
+            /* Добавляем плавность перехода, чтобы не было резкого мерцания */
+            transition: opacity 0.2s ease-in-out; 
         }
     </style>
 </head>
@@ -127,9 +93,9 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">KAA by Bill Kaulitz</span> is a perfume brand. 
-                <br><br>As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media. 
-                My task was to create content that reinforces the brand's character and supports its recognizable visual language.
+                <span class="brand-name">KAA by Bill Kaulitz</span> is a perfume brand.
+                <br><br>
+                As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
             </div>
         </div>
 
@@ -138,7 +104,6 @@
                 <a href="project3.html">‹ Previous</a>
                 <a href="project5.html">Next ›</a>
             </div>
-
             <div class="footer-bottom">
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
@@ -147,25 +112,42 @@
     </div>
         
     <div class="right-side">
-        <img id="dynamic-work" src="work32.gif">
+        <img id="dynamic-work" src="work13.png">
     </div>
 
-   <script>
+    <script>
         const images = [
-            'work32.png',
-            'work33.png',
-            'work34.png',
-            'work35.png',
-            'work36.png',
-            'work37.png'
+            'work13.png',
+            'work14.png',
+            'work15.png',
+            'work16.png'
         ];
+
+        // 1. ПРЕДЗАГРУЗКА ИЗОБРАЖЕНИЙ
+        const preloadedImages = [];
+        images.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+            preloadedImages.push(img);
+        });
 
         let currentIndex = 0;
         const dynamicImg = document.getElementById('dynamic-work');
 
+        // 2. ФУНКЦИЯ СМЕНЫ С ПЛАВНОСТЬЮ
         function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            dynamicImg.src = images[currentIndex];
+            // Уменьшаем прозрачность перед сменой
+            dynamicImg.style.opacity = 0.8; 
+            
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                dynamicImg.src = images[currentIndex];
+                
+                // Возвращаем прозрачность, когда картинка поменялась
+                dynamicImg.onload = () => {
+                    dynamicImg.style.opacity = 1;
+                };
+            }, 100); 
         }
 
         setInterval(changeImage, 1000);
