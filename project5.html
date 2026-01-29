@@ -25,9 +25,8 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            /* Включаем горизонтальный скролл */
-            overflow-x: auto;
-            overflow-y: hidden;
+            /* Скрываем стандартные полосы прокрутки для чистоты */
+            overflow: hidden; 
             height: 100vh;
         }
 
@@ -103,28 +102,39 @@
             text-decoration: none;
         }
 
-        /* Правая часть с горизонтальной лентой */
+        /* Контейнер для скролла */
+        .scroll-wrapper {
+            width: 50%;
+            margin-left: 50%;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            display: flex;
+            align-items: center;
+            /* Убираем полосу прокрутки в разных браузерах */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+        }
+        .scroll-wrapper::-webkit-scrollbar { display: none; }
+
         .content-side {
             display: flex;
             align-items: center;
-            /* margin-left 50% чтобы не перекрывать левую панель */
-            margin-left: 50%;
-            padding: 0 80px; /* Отступы по краям ленты */
+            padding: 0 10%; /* Начальный и конечный отступы в ленте */
             height: 100vh;
-            white-space: nowrap;
         }
 
         .content-side img {
-            /* Высота 80vh как в Trendyol для эффекта "рамки" */
             height: 80vh;
             width: auto;
             display: block;
-            margin-right: 40px; /* Расстояние между фото */
+            margin-right: 60px; /* Зазор между фото */
             object-fit: contain;
+            flex-shrink: 0;
         }
 
         .content-side img:last-child {
-            margin-right: 0;
+            margin-right: 20vw; /* Зазор в конце, чтобы последнее фото не прилипало */
         }
     </style>
 </head>
@@ -134,7 +144,7 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">SPEEXX</span> is a brand
+                <span class="brand-name">SPEEXX</span> is a brand.
             </div>
         </div>
 
@@ -151,15 +161,27 @@
         </div>
     </div>
 
-    <div class="content-side">
-        <img src="work38.png">
-        <img src="work39.png">
-        <img src="work40.png">
-        <img src="work41.png">
-        <img src="work42.png">
-        <img src="work43.png">
-        <img src="work44.png">
+    <div class="scroll-wrapper" id="scrollContainer">
+        <div class="content-side">
+            <img src="work38.png">
+            <img src="work39.png">
+            <img src="work40.png">
+            <img src="work41.png">
+            <img src="work42.png">
+            <img src="work43.png">
+            <img src="work44.png">
+        </div>
     </div>
+
+    <script>
+        const scrollContainer = document.getElementById('scrollContainer');
+
+        // Слушаем прокрутку колесика
+        window.addEventListener('wheel', (evt) => {
+            // Передаем вертикальный скролл (deltaY) в горизонтальный скролл контейнера
+            scrollContainer.scrollLeft += evt.deltaY;
+        });
+    </script>
 
 </body>
 </html>
