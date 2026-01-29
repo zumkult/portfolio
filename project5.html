@@ -25,7 +25,6 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            /* Скрываем стандартные полосы прокрутки для чистоты */
             overflow: hidden; 
             height: 100vh;
         }
@@ -111,7 +110,6 @@
             overflow-y: hidden;
             display: flex;
             align-items: center;
-            /* Убираем полосу прокрутки в разных браузерах */
             scrollbar-width: none; 
             -ms-overflow-style: none; 
         }
@@ -120,7 +118,8 @@
         .content-side {
             display: flex;
             align-items: center;
-            padding: 0 10%; /* Начальный и конечный отступы в ленте */
+            /* Убрали лишние 10% в конце, оставили только начальный отступ */
+            padding-left: 10%; 
             height: 100vh;
         }
 
@@ -128,13 +127,14 @@
             height: 80vh;
             width: auto;
             display: block;
-            margin-right: 60px; /* Зазор между фото */
+            margin-right: 60px; /* Расстояние между фото */
             object-fit: contain;
             flex-shrink: 0;
         }
 
+        /* Убираем отступ у самого последнего фото, чтобы оно упиралось в край */
         .content-side img:last-child {
-            margin-right: 20vw; /* Зазор в конце, чтобы последнее фото не прилипало */
+            margin-right: 0;
         }
     </style>
 </head>
@@ -144,8 +144,9 @@
         <div>
             <a href="index.html" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language skills development. 
-                <br><br>As part of this collaboration, I developed informative infographic cards for LinkedIn, combining design thinking with AI tools to visualize data and accelerate the creative process. My work included content concept, structuring complex information into visual formats, and creating visuals that reinforce the brand's expert image in a professional environment.
+                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics with LinkedIn, design, collaborating with AI tools to visualize data and the creative process.
+                <br><br>
+                My work included content concept, structuring complex into visual formats, and creating visuals that create the brand's expert image in professional environment.
             </div>
         </div>
 
@@ -176,10 +177,8 @@
 
     <script>
         const scrollContainer = document.getElementById('scrollContainer');
-
-        // Слушаем прокрутку колесика
         window.addEventListener('wheel', (evt) => {
-            // Передаем вертикальный скролл (deltaY) в горизонтальный скролл контейнера
+            // Плавный скролл: вертикальное колесико -> горизонтальный сдвиг
             scrollContainer.scrollLeft += evt.deltaY;
         });
     </script>
