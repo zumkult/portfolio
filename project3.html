@@ -135,15 +135,27 @@
             </div>
         </div>
 
-        <div class="left-footer">
-            <div class="nav-arrows">
-                <a href="project2.html">‹ Previous</a>
-                <a href="project4.html">Next ›</a>
-            </div>
+    .left-footer {
+    display: flex;
+    flex-direction: column;
+    /* Оставляем gap как основной и единственный разделитель */
+    gap: 10px; 
+}
 
-            <div class="footer-bottom">
-                <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
-                <div class="copyright">© 2026 Lisa Voronov</div>
+.nav-arrows {
+    display: flex;
+    justify-content: space-between;
+    /* Убираем лишний margin, чтобы работал только gap */
+    margin-bottom: 0; 
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* line-height: 1 гарантирует, что невидимые границы текста не съедят место */
+    line-height: 1; 
+}
             </div>
         </div>
     </div>
