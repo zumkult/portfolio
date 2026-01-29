@@ -38,14 +38,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* Выравнивание: 10% высоты экрана сверху и снизу */
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
         }
 
-        /* Унифицированный шрифт 15px */
         .back-link, .description, .nav-arrows, .footer-bottom {
             font-size: 15px;
         }
@@ -63,8 +61,8 @@
             line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
-            text-align: justify; /* Растягиваем текст по краям */
-            text-align-last: left; /* Последняя строка всегда слева */
+            text-align: justify;
+            text-align-last: left;
         }
 
         .brand-name {
@@ -75,13 +73,15 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            gap: 10px; 
+            /* Установлен gap 15px */
+            gap: 15px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            /* Убран margin для чистого gap */
+            margin-bottom: 0; 
         }
 
         .nav-arrows a {
@@ -116,7 +116,6 @@
         }
 
         #dynamic-work {
-            /* Фото 80% высоты центрировано = зазоры по 10% сверху и снизу */
             width: 80%;
             height: 80vh;
             object-fit: contain;
