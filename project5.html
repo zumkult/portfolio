@@ -112,13 +112,14 @@
             align-items: center;
             scrollbar-width: none; 
             -ms-overflow-style: none; 
+            /* Плавность скролла на тачпадах */
+            scroll-behavior: smooth;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
         .content-side {
             display: flex;
             align-items: center;
-            /* Убрали лишние 10% в конце, оставили только начальный отступ */
             padding-left: 10%; 
             height: 100vh;
         }
@@ -127,12 +128,20 @@
             height: 80vh;
             width: auto;
             display: block;
-            margin-right: 60px; /* Расстояние между фото */
+            margin-right: 60px; 
             object-fit: contain;
             flex-shrink: 0;
+            /* Перекладываем расчеты на видеокарту для плавности */
+            will-change: transform;
+            /* Мягкое появление картинок */
+            animation: fadeIn 0.8s ease-out;
         }
 
-        /* Убираем отступ у самого последнего фото, чтобы оно упиралось в край */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         .content-side img:last-child {
             margin-right: 0;
         }
@@ -165,22 +174,26 @@
 
     <div class="scroll-wrapper" id="scrollContainer">
         <div class="content-side">
-            <img src="work38.png">
-            <img src="work39.png">
-            <img src="work40.png">
-            <img src="work41.png">
-            <img src="work42.png">
-            <img src="work43.png">
-            <img src="work44.png">
+            <img src="work38.png" loading="eager" decoding="async">
+            <img src="work39.png" loading="eager" decoding="async">
+            <img src="work40.png" loading="lazy" decoding="async">
+            <img src="work41.png" loading="lazy" decoding="async">
+            <img src="work42.png" loading="lazy" decoding="async">
+            <img src="work43.png" loading="lazy" decoding="async">
+            <img src="work44.png" loading="lazy" decoding="async">
         </div>
     </div>
 
     <script>
         const scrollContainer = document.getElementById('scrollContainer');
+        
+        // Оптимизированный перехват колесика мыши
         window.addEventListener('wheel', (evt) => {
-            // Плавный скролл: вертикальное колесико -> горизонтальный сдвиг
-            scrollContainer.scrollLeft += evt.deltaY;
-        });
+            // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
+            evt.preventDefault();
+            // Направляем движение в горизонтальную плоскость
+            scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
+        }, { passive: false }); // Важно для мгновенной реакции без задержки
     </script>
 
 </body>
