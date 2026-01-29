@@ -73,14 +73,12 @@
         .left-footer {
             display: flex;
             flex-direction: column;
-            /* Единый отступ между всеми элементами футера */
             gap: 15px; 
         }
 
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            /* Убрали margin-bottom, теперь расстояние регулирует gap в .left-footer */
             margin-bottom: 0; 
         }
 
@@ -120,6 +118,8 @@
             height: 80vh;
             object-fit: contain;
             display: block;
+            /* Плавный переход для избавления от мерцания */
+            transition: opacity 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -162,15 +162,33 @@
             'work31.png'
         ];
 
+        // 1. Предзагрузка всех изображений в кэш браузера
+        const preloadedImages = [];
+        images.forEach((src) => {
+            const img = new Image();
+            img.src = src;
+            preloadedImages.push(img);
+        });
+
         let currentIndex = 0;
         const dynamicImg = document.getElementById('dynamic-work');
 
+        // 2. Функция смены с легким эффектом исчезновения
         function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            dynamicImg.src = images[currentIndex];
+            dynamicImg.style.opacity = 0; // Сначала скрываем
+            
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                dynamicImg.src = images[currentIndex];
+                
+                // Когда картинка загружена из кэша, проявляем ее
+                dynamicImg.onload = () => {
+                    dynamicImg.style.opacity = 1;
+                };
+            }, 300); // Время должно совпадать с CSS transition
         }
 
-        setInterval(changeImage, 1000);
+        setInterval(changeImage, 1500); // Увеличил интервал до 1.5 сек для комфортного чтения
     </script>
 
 </body>
