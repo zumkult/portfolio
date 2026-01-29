@@ -38,14 +38,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            /* 10vh сверху и снизу выравнивают текст по границе фото (которое 80vh) */
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
         }
 
-        /* Унифицированный шрифт 15px для всех элементов */
         .back-link, .description, .nav-arrows, .footer-bottom {
             font-size: 15px;
         }
@@ -81,7 +79,7 @@
         .nav-arrows {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-bottom: 0; /* Убрано для синхронизации с другими страницами */
         }
 
         .nav-arrows a {
@@ -150,15 +148,30 @@
     </div>
         
     <div class="right-side">
-        <img id="dynamic-work" src="work32.png">
+        <img id="dynamic-work" src="work32.gif">
     </div>
 
     <script>
+        // Изменил расширения на .gif для работы анимации
         const images = [
-            'work32.png',
-            'work33.png',
-            'work34.png',
-            'work35.png',
-            'work36.png',
-            'work37.png'
+            'work32.gif',
+            'work33.gif',
+            'work34.gif',
+            'work35.gif',
+            'work36.gif',
+            'work37.gif'
         ];
+
+        let currentIndex = 0;
+        const dynamicImg = document.getElementById('dynamic-work');
+
+        function changeImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            dynamicImg.src = images[currentIndex];
+        }
+
+        setInterval(changeImage, 1000);
+    </script>
+
+</body>
+</html>
