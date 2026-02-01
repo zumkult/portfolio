@@ -119,9 +119,25 @@
             height: 80vh;
             object-fit: contain;
             display: block;
-            /* Плавная смена прозрачности */
-            transition: opacity 0.4s ease-in-out;
-            will-change: opacity;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
+            }
+            .info-side {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 40px 20px;
+            }
+            .right-side {
+                width: 100%;
+                height: 60vh;
+                margin-left: 0;
+            }
         }
     </style>
 </head>
@@ -129,7 +145,7 @@
 
     <div class="info-side">
         <div>
-            <a href="index.html" class="back-link">← Back to portfolio</a>
+            <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
             <div class="description">
                 <span class="brand-name">KAA by Bill Kaulitz</span> 
                is a perfume brand.
@@ -176,23 +192,12 @@
         const dynamicImg = document.getElementById('dynamic-work');
 
         function changeImage() {
-            // 1. Начинаем исчезновение
-            dynamicImg.style.opacity = 0;
-
-            setTimeout(() => {
-                // 2. Меняем источник, когда картинка стала прозрачной
-                currentIndex = (currentIndex + 1) % images.length;
-                dynamicImg.src = images[currentIndex];
-
-                // 3. Проявляем только после того, как браузер подтвердил загрузку файла
-                dynamicImg.onload = () => {
-                    dynamicImg.style.opacity = 1;
-                };
-            }, 400); // время завязано на CSS transition
+            currentIndex = (currentIndex + 1) % images.length;
+            dynamicImg.src = images[currentIndex];
         }
 
-        // Запускаем цикл смены раз в 2 секунды (чтобы глаз успел считать фото)
-        setInterval(changeImage, 2000);
+        // Запускаем цикл смены каждую секунду
+        setInterval(changeImage, 1000);
     </script>
 
 </body>

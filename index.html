@@ -25,13 +25,8 @@
         .column { 
             width: 50%; 
             height: 100vh; 
-            overflow-y: auto; 
+            overflow: hidden; 
             box-sizing: border-box;
-            scroll-snap-type: y proximity;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            /* Оптимизация для плавного скролла */
-            will-change: scroll-position;
         }
 
         .column::-webkit-scrollbar { 
@@ -44,7 +39,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            scroll-snap-align: start;
             background: #0D0D0D; /* Фон, пока грузится фото */
         }
 
@@ -64,6 +58,16 @@
 
         .item a:hover img {
             opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            .column {
+                width: 100%;
+                overflow-y: scroll;
+            }
+            #right {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -94,38 +98,117 @@
     <script>
         const left = document.getElementById('left');
         const right = document.getElementById('right');
-        let activeColumn = null;
-        let ticking = false;
+        const itemsCount = left.querySelectorAll('.item').length;
+        let currentIndex = 0;
+        
+        // Состояние анимации (чтобы можно было отменить текущую и начать новую)
+        let leftAnim = { id: null };
+        let rightAnim = { id: null };
 
-        left.onmouseenter = () => { activeColumn = 'left'; };
-        right.onmouseenter = () => { activeColumn = 'right'; };
+        // Настройки чувствительности скролла
+        let scrollAccumulator = 0;
+        const scrollThreshold = 200; // Порог срабатывания (еще выше для защиты от случайных скроллов)
+        let lastScrollTime = 0;
+        let scrollResetTimer = null; // Таймер сброса инерции
+        const scrollCooldown = 600; // Пауза для гашения инерции трекпада
 
-        function syncScroll(e) {
-            if (!ticking) {
-                // Используем requestAnimationFrame для плавной синхронизации (60fps)
-                window.requestAnimationFrame(() => {
-                    const source = e.target;
-                    const target = (source === left) ? right : left;
-                    
-                    if (activeColumn === source.id) {
-                        const maxSource = source.scrollHeight - source.clientHeight;
-                        const maxTarget = target.scrollHeight - target.clientHeight;
-                        const percentage = source.scrollTop / maxSource;
-                        
-                        target.scrollTop = maxTarget - (percentage * maxTarget);
-                    }
-                    ticking = false;
-                });
-                ticking = true;
-            }
+        // Отключаем восстановление скролла браузером, чтобы всегда начинать правильно
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
         }
 
-        left.addEventListener('scroll', syncScroll, { passive: true });
-        right.addEventListener('scroll', syncScroll, { passive: true });
-
+        // Устанавливаем начальное положение (правая колонка в самом низу)
         window.onload = () => {
-            right.scrollTop = right.scrollHeight;
+            // Проверяем, есть ли параметр p в URL (номер слайда)
+            const params = new URLSearchParams(window.location.search);
+            const p = parseInt(params.get('p'), 10);
+
+            if (!isNaN(p) && p >= 0 && p < itemsCount) {
+                currentIndex = p;
+            }
+
+            const vh = window.innerHeight;
+            left.scrollTop = currentIndex * vh;
+            right.scrollTop = (itemsCount - 1 - currentIndex) * vh;
         };
+
+        // Функция для плавной анимации с возможностью прерывания
+        function smoothScrollTo(element, target, duration, animState) {
+            // Если анимация уже идет, отменяем её, чтобы начать новую к новой цели
+            if (animState.id) cancelAnimationFrame(animState.id);
+
+            const start = element.scrollTop;
+            const change = target - start;
+            const startTime = performance.now();
+
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing: easeOutQuart — эффект сильного магнита
+                // (быстрый старт, очень медленная и плавная остановка)
+                const ease = 1 - Math.pow(1 - progress, 4);
+
+                element.scrollTop = start + change * ease;
+
+                if (progress < 1) {
+                    animState.id = requestAnimationFrame(animate);
+                } else {
+                    animState.id = null;
+                }
+            }
+            animState.id = requestAnimationFrame(animate);
+        }
+
+        // Единый обработчик колесика для всего окна
+        window.addEventListener('wheel', (e) => {
+            e.preventDefault(); // Блокируем стандартный скролл страницы
+            
+            const now = Date.now();
+            const timeSinceLast = now - lastScrollTime;
+
+            // Игнорируем инерцию сразу после переключения (самое важное для устранения "пролетания")
+            if (timeSinceLast < scrollCooldown) {
+                scrollAccumulator = 0;
+                return;
+            }
+
+            // Накапливаем импульс скролла
+            scrollAccumulator += e.deltaY;
+            
+            // Сбрасываем накопитель, если скролл прекратился
+            clearTimeout(scrollResetTimer);
+            scrollResetTimer = setTimeout(() => { scrollAccumulator = 0; }, 200);
+
+            // Если накопили достаточно движения И прошло немного времени с прошлого раза
+            if (Math.abs(scrollAccumulator) > scrollThreshold) {
+                const direction = scrollAccumulator > 0 ? 1 : -1;
+
+                // Проверка границ
+                if ((direction === 1 && currentIndex < itemsCount - 1) || 
+                    (direction === -1 && currentIndex > 0)) {
+                    
+                    currentIndex += direction;
+
+                    const vh = window.innerHeight;
+                    
+                    // АДАПТИВНАЯ СКОРОСТЬ:
+                    // Если скроллим часто (интервал < 1200мс) -> быстро (800мс)
+                    // Если спокойно -> плавно и медленно (2000мс)
+                    const duration = timeSinceLast < 1200 ? 800 : 2000; 
+                    
+                    lastScrollTime = now;
+
+                    // Запускаем анимацию (или обновляем цель, если уже едем)
+                    smoothScrollTo(left, currentIndex * vh, duration, leftAnim);
+                    smoothScrollTo(right, (itemsCount - 1 - currentIndex) * vh, duration, rightAnim);
+                }
+                
+                // Сбрасываем накопитель, чтобы ловить следующий "щелчок" колеса
+                scrollAccumulator = 0;
+            }
+
+        }, { passive: false });
     </script>
 </body>
 </html>

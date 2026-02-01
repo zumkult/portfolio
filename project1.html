@@ -129,13 +129,27 @@
         .content-side img:last-child {
             margin-bottom: 0;
         }
+
+        @media (max-width: 768px) {
+            .info-side {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 40px 20px;
+            }
+            .content-side {
+                width: 100%;
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="info-side">
         <div>
-            <a href="index.html" class="back-link">← Back to portfolio</a>
+            <a href="index.html?p=1" class="back-link">← Back to portfolio</a>
             <div class="description">
                 <span class="brand-name">SIMPLIE HAIR</span> is a brand specializing in hair extensions and professional training for stylists. 
                 <br><br>As part of our collaboration, I was responsible for all of the brand's visual and print content: 
