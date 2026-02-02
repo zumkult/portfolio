@@ -12,6 +12,13 @@
             font-style: normal;
         }
 
+        @font-face {
+            font-family: 'PP Neue Montreal Medium';
+            src: url('PPNeueMontreal-Medium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0; 
             padding: 0;
@@ -81,55 +88,16 @@
                 display: none;
             }
 
-            /* Приветственный экран */
-            #welcome-screen {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background: #0D0D0D;
-                z-index: 1000;
-                color: rgba(255, 255, 255, 0.9);
-                font-size: 18px;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-                opacity: 1;
-                transition: opacity 1s 0.5s ease-out; /* Плавное исчезновение с задержкой */
-            }
-
-            #welcome-screen.hidden {
-                opacity: 0;
-                pointer-events: none; /* Чтобы не мешал кликам после исчезновения */
-            }
-
-            .welcome-text {
-                opacity: 0;
-                animation: fadeInText 1.5s ease-in-out forwards;
-            }
-
-            .welcome-text:last-child {
-                animation-delay: 0.5s; /* Появляется чуть позже */
-            }
-
-            @keyframes fadeInText {
-                to { opacity: 1; }
-            }
-
             /* Контент для мобильных */
             .mobile-view {
                 display: block;
-                padding: 20px;
+            padding: 0;
                 box-sizing: border-box;
             }
 
             .mobile-view a {
                 display: block;
-                margin-bottom: 20px;
+            margin-bottom: 0;
             }
 
             .mobile-view img {
@@ -141,11 +109,6 @@
     </style>
 </head>
 <body>
-
-    <div id="welcome-screen">
-        <div class="welcome-text">graphic designer</div>
-        <div class="welcome-text">lisa voronov</div>
-    </div>
 
     <div class="desktop-view">
         <div id="left" class="column">
@@ -172,13 +135,14 @@
     </div>
 
     <div class="mobile-view">
+        <img src="work1.1.png">
         <a href="project1.html"><img src="work3.png"></a>
         <a href="project2.html"><img src="work5.png"></a>
         <a href="project3.html"><img src="work7.png"></a>
         <a href="project4.html"><img src="work10.png"></a>
         <a href="project5.html"><img src="work11.png"></a>
-        <a href="project5.html"><img src="work12.png"></a>
         <a href="project6.html"><img src="work13.png"></a>
+        <a href="project7.html"><img src="work15.png"></a>
     </div>
 
     <script>
@@ -266,19 +230,6 @@
 
         } else {
             // --- ЛОГИКА ДЛЯ МОБИЛЬНЫХ ---
-            document.addEventListener('DOMContentLoaded', () => {
-                const welcomeScreen = document.getElementById('welcome-screen');
-                
-                // Через 3 секунды добавляем класс, который запускает анимацию исчезновения
-                setTimeout(() => {
-                    welcomeScreen.classList.add('hidden');
-                    
-                    // После завершения анимации (1.5с) окончательно скрываем экран
-                    setTimeout(() => {
-                        welcomeScreen.style.display = 'none';
-                    }, 1500); 
-                }, 3000);
-            });
         }
     </script>
 </body>
