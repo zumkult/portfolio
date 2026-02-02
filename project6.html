@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
-    <meta name="googlebot" content="noindex, nofol, noarchive, noimageindex">
-    <meta name="googlebot" content="noindex, nofol, noarchive, noimageindex">
     <meta name="googlebot" content="noindex, nofollow">
-    <title>Lisa Voronov | Lisa Voronov</title>
+    <title>BASLER BEAUTY | Lisa Voronov</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* ... (шрифты оставляем без изменений) ... */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -32,8 +29,8 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; 
-            height: 100vh;
+            overflow-y: auto; 
+            scroll-behavior: smooth; /* Плавный переход при скролле */
         }
 
         .info-side {
@@ -60,7 +57,6 @@
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            display: inline-block;
             line-height: 1;
         }
 
@@ -109,33 +105,39 @@
             text-decoration: none;
         }
 
-        .right-side {
+        .content-side {
             width: 50%;
-            height: 100vh;
-            margin-left: 50%;
+            margin-left: 50%; 
             display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: #ffffff;
+            flex-direction: column;
+            padding: 10vh 0;
+            box-sizing: border-box;
         }
 
-        #dynamic-work {
-            width: 80%;
-            height: 80vh;
-            object-fit: contain;
+        .content-side img {
+            width: 100%;
             display: block;
+            margin-bottom: 20px;
+            /* Переносим рендеринг на GPU для исключения рывков */
+            will-change: transform;
+            /* Плавное проявление при скролле */
+            animation: fadeInScroll 0.8s ease-out forwards;
         }
 
-        .mobile-gallery { display: none; }
+        @keyframes fadeInScroll {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .content-side img:last-child {
+            margin-bottom: 0;
+        }
         .mobile-footer { display: none; }
         .mobile-nav { display: none; }
 
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
-                height: auto;
-                overflow-y: auto;
             }
             .info-side {
                 width: 100%;
@@ -143,21 +145,10 @@
                 position: relative;
                 padding: 40px 20px;
             }
-            .right-side {
-                display: none;
-            }
-            .mobile-gallery {
-                display: flex;
-                flex-direction: column;
+            .content-side {
                 width: 100%;
+                margin-left: 0;
                 padding: 20px;
-                box-sizing: border-box;
-            }
-            .mobile-gallery img {
-                width: 100%;
-                height: auto;
-                margin-bottom: 20px;
-                display: block;
             }
             .info-side .footer-bottom {
                 display: none;
@@ -190,23 +181,17 @@
 
     <div class="info-side">
         <div>
-            <a href="index.html?p=7" class="back-link">← Back to portfolio</a>
+            <a href="index.html?p=6" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">Lisa Voronov</span> 
-                that's me. I am a graphic designer with extensive experience in digital and print media. 
-                I work with brands and their intermediaries, creating photo and video content, 
-                visual systems, and images that align with each brand's aesthetics. 
-                For me, design is first and foremost about function and emotion, 
-                and only then about pleasing visuals. 
-                <br><br>
-                If you like my approach, I look forward to working with you!
+                <span class="brand-name">BASLER BEAUTY</span> is a retailer of cosmetics and skin and hair care products. 
+                <br><br>As part of a long-term collaboration, I was responsible for product photography for the brand's official social media accounts, including styling, shooting, and post-production of images in accordance with the company's visual guidelines. My work ensured a consistent, recognizable visual style and high-quality content across all publications.
             </div>
         </div>
 
         <div class="left-footer">
             <div class="nav-arrows">
-                <a href="BASLER BEAUTY.html">‹ Previous</a>
-                <a href="SIMPLIE.html">Next ›</a>
+                <a href="SPEEXX.html">‹ Previous</a>
+                <a href="ME.html">Next ›</a>
             </div>
 
             <div class="footer-bottom">
@@ -215,54 +200,23 @@
             </div>
         </div>
     </div>
-        
-    <div class="right-side">
-        <img id="dynamic-work" src="work49.png">
-    </div>
 
-    <div class="mobile-gallery">
-        <img src="work49.png" loading="lazy">
-        <img src="work50.png" loading="lazy">
-        <img src="work51.png" loading="lazy">
-        <img src="work52.png" loading="lazy">
+    <div class="content-side">
+        <img src="work45.png" loading="eager" decoding="async">
+        <img src="work46.png" loading="lazy" decoding="async">
+        <img src="work47.png" loading="lazy" decoding="async">
+        <img src="work48.png" loading="lazy" decoding="async">
     </div>
 
     <div class="nav-arrows mobile-nav">
-        <a href="BASLER BEAUTY.html">‹ Previous</a>
-        <a href="SIMPLIE.html">Next ›</a>
+        <a href="SPEEXX.html">‹ Previous</a>
+        <a href="ME.html">Next ›</a>
     </div>
 
     <div class="mobile-footer">
         <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
         <div class="copyright">© 2026 Lisa Voronov</div>
     </div>
-
-    <script>
-        const images = [
-            'work49.png',
-            'work50.png',
-            'work51.png',
-            'work52.png',
-        ];
-
-        // ПРЕДЗАГРУЗКА: сохраняем картинки в памяти браузера
-        const preloadStore = images.map(src => {
-            const img = new Image();
-            img.src = src;
-            return img;
-        });
-
-        let currentIndex = 0;
-        const dynamicImg = document.getElementById('dynamic-work');
-
-        function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            dynamicImg.src = images[currentIndex];
-        }
-
-        // Запускаем цикл смены каждую секунду
-        setInterval(changeImage, 1000);
-    </script>
 
 </body>
 </html>
