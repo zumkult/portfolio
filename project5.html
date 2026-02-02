@@ -162,10 +162,21 @@
             .scroll-wrapper {
                 width: 100%;
                 margin-left: 0;
-                height: 60vh;
+                height: auto;
+                overflow: visible;
+                display: block;
+            }
+            .content-side {
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                height: auto;
             }
             .content-side img {
-                height: 50vh;
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+                margin-bottom: 20px;
             }
         }
     </style>
@@ -210,13 +221,15 @@
     <script>
         const scrollContainer = document.getElementById('scrollContainer');
         
-        // Оптимизированный перехват колесика мыши
-        window.addEventListener('wheel', (evt) => {
-            // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
-            evt.preventDefault();
-            // Направляем движение в горизонтальную плоскость
-            scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
-        }, { passive: false }); // Важно для мгновенной реакции без задержки
+        // Включаем перехват скролла ТОЛЬКО на десктопе
+        if (window.matchMedia("(min-width: 769px)").matches) {
+            window.addEventListener('wheel', (evt) => {
+                // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
+                evt.preventDefault();
+                // Направляем движение в горизонтальную плоскость
+                scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
+            }, { passive: false });
+        }
     </script>
 
 </body>
