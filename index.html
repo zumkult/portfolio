@@ -249,15 +249,20 @@
                 history.scrollRestoration = 'manual';
             }
 
-            window.onload = () => {
+            const scrollToProject = () => {
                 const params = new URLSearchParams(window.location.search);
                 const p = parseInt(params.get('p'), 10);
                 const mobileItems = document.querySelectorAll('.mobile-view > *');
 
                 if (!isNaN(p) && p >= 0 && p < mobileItems.length) {
-                    mobileItems[p].scrollIntoView({ behavior: 'auto', block: 'start' });
+                    setTimeout(() => {
+                        mobileItems[p].scrollIntoView({ behavior: 'auto', block: 'start' });
+                    }, 100);
                 }
             };
+
+            window.addEventListener('load', scrollToProject);
+            window.addEventListener('pageshow', (e) => { if (e.persisted) scrollToProject(); });
         }
     </script>
 </body>
