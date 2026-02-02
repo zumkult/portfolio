@@ -245,6 +245,19 @@
 
         } else {
             // --- ЛОГИКА ДЛЯ МОБИЛЬНЫХ ---
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+
+            window.onload = () => {
+                const params = new URLSearchParams(window.location.search);
+                const p = parseInt(params.get('p'), 10);
+                const mobileItems = document.querySelectorAll('.mobile-view > *');
+
+                if (!isNaN(p) && p >= 0 && p < mobileItems.length) {
+                    mobileItems[p].scrollIntoView({ behavior: 'auto', block: 'start' });
+                }
+            };
         }
     </script>
 </body>
