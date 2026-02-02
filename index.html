@@ -73,7 +73,7 @@
         }
 
         /* Стили для мобильной версии по умолчанию скрыты */
-        #welcome-screen, .mobile-view {
+        #welcome-screen, .mobile-view, .mobile-footer {
             display: none;
         }
 
@@ -104,6 +104,21 @@
                 width: 100%;
                 height: auto;
                 display: block;
+            }
+
+            .mobile-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                font-size: 15px;
+                width: 100%;
+                box-sizing: border-box;
+                color: #ffffff;
+            }
+            .mobile-footer a {
+                color: #ffffff;
+                text-decoration: none;
             }
         }
     </style>
@@ -143,6 +158,11 @@
         <a href="project5.html"><img src="work11.png"></a>
         <a href="project6.html"><img src="work13.png"></a>
         <a href="project7.html"><img src="work15.png"></a>
+    </div>
+
+    <div class="mobile-footer">
+        <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
+        <div class="copyright">© 2026 Lisa Voronov</div>
     </div>
 
     <script>
