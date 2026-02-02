@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <meta name="googlebot" content="noindex, nofollow">
-    <title>SPEEXX | Lisa Voronov</title>
+    <title>KAA by Bill Kaulitz | Lisa Voronov</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
+        /* ... (шрифты оставляем без изменений) ... */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -57,6 +58,7 @@
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            display: inline-block;
             line-height: 1;
         }
 
@@ -105,50 +107,25 @@
             text-decoration: none;
         }
 
-        /* Контейнер для скролла */
-        .scroll-wrapper {
+        .right-side {
             width: 50%;
+            height: 100vh;
             margin-left: 50%;
-            height: 100vh;
-            overflow-x: auto;
-            overflow-y: hidden;
             display: flex;
             align-items: center;
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-            /* Плавность скролла на тачпадах */
-            scroll-behavior: auto;
-        }
-        .scroll-wrapper::-webkit-scrollbar { display: none; }
-
-        .content-side {
-            display: flex;
-            align-items: center;
-            padding-left: 10%; 
-            height: 100vh;
+            justify-content: center;
+            overflow: hidden;
+            background: #ffffff;
         }
 
-        .content-side img {
+        #dynamic-work {
+            width: 80%;
             height: 80vh;
-            width: auto;
-            display: block;
-            margin-right: 60px; 
             object-fit: contain;
-            flex-shrink: 0;
-            /* Перекладываем расчеты на видеокарту для плавности */
-            will-change: transform;
-            /* Мягкое появление картинок */
-            animation: fadeIn 0.8s ease-out;
+            display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .content-side img:last-child {
-            margin-right: 0;
-        }
+        .mobile-gallery { display: none; }
         .mobile-footer { display: none; }
         .mobile-nav { display: none; }
 
@@ -164,24 +141,21 @@
                 position: relative;
                 padding: 40px 20px;
             }
-            .scroll-wrapper {
-                width: 100%;
-                margin-left: 0;
-                height: auto;
-                overflow: visible;
-                display: block;
+            .right-side {
+                display: none;
             }
-            .content-side {
+            .mobile-gallery {
                 display: flex;
                 flex-direction: column;
+                width: 100%;
                 padding: 20px;
-                height: auto;
+                box-sizing: border-box;
             }
-            .content-side img {
+            .mobile-gallery img {
                 width: 100%;
                 height: auto;
-                margin-right: 0;
-                margin-bottom: 5px;
+                margin-bottom: 20px;
+                display: block;
             }
             .info-side .footer-bottom {
                 display: none;
@@ -214,18 +188,19 @@
 
     <div class="info-side">
         <div>
-            <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
+            <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics with LinkedIn, design, collaborating with AI tools to visualize data and the creative process.
+                <span class="brand-name">KAA by Bill Kaulitz</span> 
+               is a perfume brand.
                 <br><br>
-                My work included content concept, structuring complex into visual formats, and creating visuals that create the brand's expert image in professional environment.
+              As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
             </div>
         </div>
 
         <div class="left-footer">
             <div class="nav-arrows">
-                <a href="KAA">‹ Previous</a>
-                <a href="BASLER BEAUTY">Next ›</a>
+                <a href="TRENDYOL">‹ Previous</a>
+                <a href="SPEEXX">Next ›</a>
             </div>
 
             <div class="footer-bottom">
@@ -234,22 +209,23 @@
             </div>
         </div>
     </div>
+        
+    <div class="right-side">
+        <img id="dynamic-work" src="work32.png">
+    </div>
 
-    <div class="scroll-wrapper" id="scrollContainer">
-        <div class="content-side">
-            <img src="work38.png" loading="eager" decoding="async">
-            <img src="work39.png" loading="eager" decoding="async">
-            <img src="work40.png" loading="lazy" decoding="async">
-            <img src="work41.png" loading="lazy" decoding="async">
-            <img src="work42.png" loading="lazy" decoding="async">
-            <img src="work43.png" loading="lazy" decoding="async">
-            <img src="work44.png" loading="lazy" decoding="async">
-        </div>
+    <div class="mobile-gallery">
+        <img src="work32.png" loading="lazy">
+        <img src="work33.png" loading="lazy">
+        <img src="work34.png" loading="lazy">
+        <img src="work35.png" loading="lazy">
+        <img src="work36.png" loading="lazy">
+        <img src="work37.png" loading="lazy">
     </div>
 
     <div class="nav-arrows mobile-nav">
-        <a href="KAA">‹ Previous</a>
-        <a href="BASLER BEAUTY">Next ›</a>
+        <a href="TRENDYOL">‹ Previous</a>
+        <a href="SPEEXX">Next ›</a>
     </div>
 
     <div class="mobile-footer">
@@ -258,17 +234,32 @@
     </div>
 
     <script>
-        const scrollContainer = document.getElementById('scrollContainer');
-        
-        // Включаем перехват скролла ТОЛЬКО на десктопе
-        if (window.matchMedia("(min-width: 769px)").matches) {
-            window.addEventListener('wheel', (evt) => {
-                // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
-                evt.preventDefault();
-                // Направляем движение в горизонтальную плоскость
-                scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
-            }, { passive: false });
+        const images = [
+            'work32.png',
+            'work33.png',
+            'work34.png',
+            'work35.png',
+ 'work36.png',
+ 'work37.png',
+        ];
+
+        // ПРЕДЗАГРУЗКА: сохраняем картинки в памяти браузера
+        const preloadStore = images.map(src => {
+            const img = new Image();
+            img.src = src;
+            return img;
+        });
+
+        let currentIndex = 0;
+        const dynamicImg = document.getElementById('dynamic-work');
+
+        function changeImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            dynamicImg.src = images[currentIndex];
         }
+
+        // Запускаем цикл смены каждую секунду
+        setInterval(changeImage, 1000);
     </script>
 
 </body>

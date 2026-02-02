@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <meta name="googlebot" content="noindex, nofollow">
-    <title>SPEEXX | Lisa Voronov</title>
-    <link rel="icon" type="image/png" href="Favicon.png">
+    <title>ILES FORMULA | Lisa Voronov</title>
     <style>
         @font-face {
             font-family: 'Notbad Sans';
@@ -29,8 +28,8 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; 
-            height: 100vh;
+            overflow-y: auto; 
+            scroll-behavior: smooth; /* Делает скролл по ссылкам плавным */
         }
 
         .info-side {
@@ -105,49 +104,23 @@
             text-decoration: none;
         }
 
-        /* Контейнер для скролла */
-        .scroll-wrapper {
-            width: 50%;
-            margin-left: 50%;
-            height: 100vh;
-            overflow-x: auto;
-            overflow-y: hidden;
-            display: flex;
-            align-items: center;
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-            /* Плавность скролла на тачпадах */
-            scroll-behavior: auto;
-        }
-        .scroll-wrapper::-webkit-scrollbar { display: none; }
-
         .content-side {
+            width: 50%;
+            margin-left: 50%; 
             display: flex;
-            align-items: center;
-            padding-left: 10%; 
-            height: 100vh;
+            flex-direction: column;
+            padding: 10vh 0;
+            box-sizing: border-box;
         }
 
         .content-side img {
-            height: 80vh;
-            width: auto;
+            width: 100%;
             display: block;
-            margin-right: 60px; 
-            object-fit: contain;
-            flex-shrink: 0;
-            /* Перекладываем расчеты на видеокарту для плавности */
-            will-change: transform;
-            /* Мягкое появление картинок */
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+            margin-bottom: 20px;
         }
 
         .content-side img:last-child {
-            margin-right: 0;
+            margin-bottom: 0;
         }
         .mobile-footer { display: none; }
         .mobile-nav { display: none; }
@@ -155,8 +128,6 @@
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
-                height: auto;
-                overflow-y: auto;
             }
             .info-side {
                 width: 100%;
@@ -164,24 +135,10 @@
                 position: relative;
                 padding: 40px 20px;
             }
-            .scroll-wrapper {
+            .content-side {
                 width: 100%;
                 margin-left: 0;
-                height: auto;
-                overflow: visible;
-                display: block;
-            }
-            .content-side {
-                display: flex;
-                flex-direction: column;
                 padding: 20px;
-                height: auto;
-            }
-            .content-side img {
-                width: 100%;
-                height: auto;
-                margin-right: 0;
-                margin-bottom: 5px;
             }
             .info-side .footer-bottom {
                 display: none;
@@ -214,18 +171,21 @@
 
     <div class="info-side">
         <div>
-            <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
+            <a href="index.html?p=2" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics with LinkedIn, design, collaborating with AI tools to visualize data and the creative process.
-                <br><br>
-                My work included content concept, structuring complex into visual formats, and creating visuals that create the brand's expert image in professional environment.
+                <span class="brand-name">ILES FORMULA</span> is a luxury professional hair care brand founded by stylist Wendy Iles. 
+                <br><br>As part of our collaboration, I developed print and digital materials for the brand: catalog design, postcards, 
+                and promotional materials, as well as online banners and visuals for mailings and e-commerce platforms.
+                My work included concept and visual storytelling, layout and typography, image retouching, 
+                pre-press preparation, print coordination, and approval management to ensure a consistent premium brand image
+                across all communication channels.
             </div>
         </div>
 
         <div class="left-footer">
             <div class="nav-arrows">
-                <a href="KAA">‹ Previous</a>
-                <a href="BASLER BEAUTY">Next ›</a>
+                <a href="SIMPLIE">‹ Previous</a>
+                <a href="TRENDYOL">Next ›</a>
             </div>
 
             <div class="footer-bottom">
@@ -235,41 +195,22 @@
         </div>
     </div>
 
-    <div class="scroll-wrapper" id="scrollContainer">
-        <div class="content-side">
-            <img src="work38.png" loading="eager" decoding="async">
-            <img src="work39.png" loading="eager" decoding="async">
-            <img src="work40.png" loading="lazy" decoding="async">
-            <img src="work41.png" loading="lazy" decoding="async">
-            <img src="work42.png" loading="lazy" decoding="async">
-            <img src="work43.png" loading="lazy" decoding="async">
-            <img src="work44.png" loading="lazy" decoding="async">
-        </div>
+    <div class="content-side">
+        <img src="work22.png" loading="eager" decoding="sync">
+        <img src="work23.png" loading="lazy" decoding="async">
+        <img src="work24.png" loading="lazy" decoding="async">
+        <img src="work25.png" loading="lazy" decoding="async">
     </div>
 
     <div class="nav-arrows mobile-nav">
-        <a href="KAA">‹ Previous</a>
-        <a href="BASLER BEAUTY">Next ›</a>
+        <a href="SIMPLIE">‹ Previous</a>
+        <a href="TRENDYOL">Next ›</a>
     </div>
 
     <div class="mobile-footer">
         <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
         <div class="copyright">© 2026 Lisa Voronov</div>
     </div>
-
-    <script>
-        const scrollContainer = document.getElementById('scrollContainer');
-        
-        // Включаем перехват скролла ТОЛЬКО на десктопе
-        if (window.matchMedia("(min-width: 769px)").matches) {
-            window.addEventListener('wheel', (evt) => {
-                // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
-                evt.preventDefault();
-                // Направляем движение в горизонтальную плоскость
-                scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
-            }, { passive: false });
-        }
-    </script>
 
 </body>
 </html>
