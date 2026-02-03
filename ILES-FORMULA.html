@@ -136,12 +136,21 @@
                 width: 100%;
                 height: auto;
                 position: relative;
-                padding: 40px 20px;
+                padding: 0 20px 40px;
             }
             .content-side {
                 width: 100%;
                 margin-left: 0;
                 padding: 20px;
+            }
+            .back-link {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                display: block;
+                background: #ffffff;
+                padding: 40px 0 20px 0;
+                z-index: 100;
             }
             .info-side .footer-bottom {
                 display: none;
@@ -166,7 +175,10 @@
                 color: #0D0D0D;
                 text-decoration: none;
             }
-            .description { text-align: left; }
+            .description { 
+                text-align: left; 
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
