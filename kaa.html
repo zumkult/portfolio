@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
     <title>KAA by Bill Kaulitz | Lisa Voronov</title>
     <meta property="og:title" content="KAA by Bill Kaulitz | Lisa Voronov">
@@ -11,7 +11,6 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* ... (шрифты оставляем без изменений) ... */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -33,10 +32,10 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; 
-            height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* --- ДЕСКТОП --- */
         .info-side {
             width: 50%;
             height: 100vh;
@@ -52,20 +51,16 @@
             z-index: 10;
         }
 
-        .back-link, .description, .nav-arrows, .footer-bottom {
-            font-size: 15px;
-        }
-
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            display: inline-block;
-            line-height: 1;
+            font-size: 15px;
         }
 
         .description {
+            font-size: 15px;
             line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
@@ -73,42 +68,15 @@
             text-align-last: left;
         }
 
-        .brand-name {
-            font-family: 'Notbad Sans Bold', sans-serif;
-            font-weight: bold;
-        }
+        .brand-name { font-family: 'Notbad Sans Bold', sans-serif; font-weight: bold; }
 
-        .left-footer {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; 
-        }
-
-        .nav-arrows {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0; 
-        }
-
-        .nav-arrows a {
-            text-decoration: none;
-            color: #0D0D0D;
-            transition: opacity 0.3s;
-        }
-
+        .left-footer { display: flex; flex-direction: column; gap: 15px; }
+        .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
+        .nav-arrows a { text-decoration: none; color: #0D0D0D; transition: opacity 0.3s; }
         .nav-arrows a:hover { opacity: 0.5; }
 
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            line-height: 1;
-        }
-
-        .footer-bottom a {
-            color: #0D0D0D;
-            text-decoration: none;
-        }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+        .footer-bottom a { color: #0D0D0D; text-decoration: none; }
 
         .right-side {
             width: 50%;
@@ -117,7 +85,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: #ffffff;
         }
 
@@ -125,90 +92,87 @@
             width: 80%;
             height: 80vh;
             object-fit: contain;
-            display: block;
         }
 
-        .mobile-gallery { display: none; }
-        .mobile-footer { display: none; }
-        .mobile-nav { display: none; }
-
+        /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                height: auto;
-                overflow-y: auto;
+            body { flex-direction: column; overflow-y: auto; }
+
+            .mobile-top-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                padding: 20px;
+                z-index: 9999;
+                box-sizing: border-box;
+                display: block;
             }
+
             .info-side {
                 width: 100%;
                 height: auto;
-                position: -webkit-sticky;
-                position: sticky;
-                top: 0;
-                z-index: 100;
-                background: #ffffff;
-                padding: 40px 20px 20px;
-                box-sizing: border-box;
+                position: relative;
+                padding: 80px 20px 20px; 
+                z-index: 10;
             }
-            .right-side {
-                display: none;
-            }
-            .back-link {
-                display: block;
-                padding-bottom: 20px;
-            }
+
+            .right-side { display: none; } /* Скрываем слайд-шоу на мобилках */
+
             .mobile-gallery {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                padding: 20px;
+                padding: 0 20px;
                 box-sizing: border-box;
             }
             .mobile-gallery img {
                 width: 100%;
                 height: auto;
                 margin-bottom: 20px;
-                display: block;
             }
-            .info-side .footer-bottom {
+
+            .info-side .footer-bottom, .info-side .nav-arrows, .info-side .back-link {
                 display: none;
             }
-            .info-side .nav-arrows {
-                display: none;
-            }
-            .mobile-nav {
-                display: flex;
-                padding: 0 20px;
-            }
+
             .mobile-footer {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
-                padding: 20px 20px 50px 20px;
+                padding: 40px 20px;
+                font-size: 14px;
+            }
+            .mobile-footer a { color: #0D0D0D; text-decoration: none; }
+            
+            .mobile-nav-arrows {
+                display: flex;
+                justify-content: space-between;
+                padding: 20px;
+                border-top: 1px solid #eee;
                 font-size: 15px;
-                width: 100%;
-                box-sizing: border-box;
             }
-            .mobile-footer a {
-                color: #0D0D0D;
-                text-decoration: none;
-            }
-            .description { 
-                text-align: left; 
-                margin-top: 0;
-            }
+            .mobile-nav-arrows a { text-decoration: none; color: #0D0D0D; }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-top-nav, .mobile-footer, .mobile-nav-arrows, .mobile-gallery { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <div class="mobile-top-nav">
+        <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
+    </div>
+
     <div class="info-side">
         <div>
             <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">KAA by Bill Kaulitz</span> 
-               is a perfume brand.
+                <span class="brand-name">KAA by Bill Kaulitz</span> is a perfume brand.
                 <br><br>
-              As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
+                As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
             </div>
         </div>
 
@@ -217,7 +181,6 @@
                 <a href="TRENDYOL.html">‹ Previous</a>
                 <a href="SPEEXX.html">Next ›</a>
             </div>
-
             <div class="footer-bottom">
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
@@ -238,7 +201,7 @@
         <img src="work37.png" loading="lazy">
     </div>
 
-    <div class="nav-arrows mobile-nav">
+    <div class="mobile-nav-arrows">
         <a href="TRENDYOL.html">‹ Previous</a>
         <a href="SPEEXX.html">Next ›</a>
     </div>
@@ -249,16 +212,7 @@
     </div>
 
     <script>
-        const images = [
-            'work32.png',
-            'work33.png',
-            'work34.png',
-            'work35.png',
- 'work36.png',
- 'work37.png',
-        ];
-
-        // ПРЕДЗАГРУЗКА: сохраняем картинки в памяти браузера
+        const images = ['work32.png', 'work33.png', 'work34.png', 'work35.png', 'work36.png', 'work37.png'];
         const preloadStore = images.map(src => {
             const img = new Image();
             img.src = src;
@@ -268,14 +222,12 @@
         let currentIndex = 0;
         const dynamicImg = document.getElementById('dynamic-work');
 
-        function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            dynamicImg.src = images[currentIndex];
+        if (dynamicImg) {
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                dynamicImg.src = images[currentIndex];
+            }, 1000);
         }
-
-        // Запускаем цикл смены каждую секунду
-        setInterval(changeImage, 1000);
     </script>
-
 </body>
 </html>
