@@ -42,7 +42,7 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Изменено для плотного футера */
+            justify-content: flex-start;
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
@@ -73,7 +73,7 @@
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
-            margin-top: auto; /* Прижимает футер вниз */
+            margin-top: auto; 
         }
 
         .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
@@ -82,33 +82,6 @@
 
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 15px; line-height: 1; }
         .footer-bottom a { color: #0D0D0D; text-decoration: none; }
-
-        /* ПОДСКАЗКА СКРОЛЛА */
-        .scroll-hint {
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            opacity: 0.4;
-            animation: nudge 2s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .scroll-hint-text {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            writing-mode: vertical-rl;
-        }
-
-        @keyframes nudge {
-            0%, 100% { transform: translate(0, -50%); }
-            50% { transform: translate(10px, -50%); }
-        }
 
         /* Контейнер для скролла */
         .scroll-wrapper {
@@ -146,6 +119,13 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
+        /* СКРЫВАЕМ МОБИЛЬНЫЕ ЭЛЕМЕНТЫ НА ДЕСКТОПЕ */
+        @media (min-width: 769px) {
+            .mobile-nav, .mobile-footer {
+                display: none !important;
+            }
+        }
+
         /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
         @media (max-width: 768px) {
             body { flex-direction: column; height: auto; overflow-y: auto; }
@@ -158,7 +138,7 @@
                 display: block;
             }
 
-            .scroll-hint { display: none; }
+            .info-side .left-footer { display: none !important; }
 
             .scroll-wrapper {
                 width: 100%;
@@ -192,15 +172,16 @@
                 margin-bottom: 15px;
             }
 
-            .info-side .left-footer { display: none; }
-
-            .mobile-nav { display: flex; padding: 20px; border-top: 1px solid #eee; }
+            .mobile-nav { display: flex; padding: 20px; border-top: 1px solid #eee; justify-content: space-between; font-size: 15px; }
+            .mobile-nav a { text-decoration: none; color: #0D0D0D; }
             
             .mobile-footer {
                 display: flex;
                 justify-content: space-between;
                 padding: 20px 20px 50px;
                 font-size: 14px;
+                width: 100%;
+                box-sizing: border-box;
             }
             .mobile-footer a { color: #0D0D0D; text-decoration: none; }
             
@@ -230,11 +211,6 @@
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
             </div>
-        </div>
-
-        <div class="scroll-hint">
-            <div class="scroll-hint-text">scroll</div>
-            <span>→</span>
         </div>
     </div>
 
