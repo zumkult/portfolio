@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
     <title>KAA by Bill Kaulitz | Lisa Voronov</title>
     <meta property="og:title" content="KAA by Bill Kaulitz | Lisa Voronov">
@@ -11,7 +11,6 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* ... (шрифты оставляем без изменений) ... */
         @font-face {
             font-family: 'Notbad Sans';
             src: url('Notbad-sans-Regular.woff2') format('woff2');
@@ -33,10 +32,10 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            overflow: hidden; 
-            height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* --- ДЕСКТОП --- */
         .info-side {
             width: 50%;
             height: 100vh;
@@ -45,15 +44,11 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; 
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
             z-index: 10;
-        }
-
-        .back-link, .description, .nav-arrows, .footer-bottom {
-            font-size: 15px;
         }
 
         .back-link {
@@ -61,11 +56,12 @@
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            display: inline-block;
+            font-size: 15px;
             line-height: 1;
         }
 
         .description {
+            font-size: 15px;
             line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
@@ -73,42 +69,21 @@
             text-align-last: left;
         }
 
-        .brand-name {
-            font-family: 'Notbad Sans Bold', sans-serif;
-            font-weight: bold;
-        }
+        .brand-name { font-family: 'Notbad Sans Bold', sans-serif; font-weight: bold; }
 
-        .left-footer {
-            display: flex;
-            flex-direction: column;
+        .left-footer { 
+            display: flex; 
+            flex-direction: column; 
             gap: 15px; 
+            margin-top: auto; 
         }
 
-        .nav-arrows {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0; 
-        }
-
-        .nav-arrows a {
-            text-decoration: none;
-            color: #0D0D0D;
-            transition: opacity 0.3s;
-        }
-
+        .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
+        .nav-arrows a { text-decoration: none; color: #0D0D0D; transition: opacity 0.3s; }
         .nav-arrows a:hover { opacity: 0.5; }
 
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            line-height: 1;
-        }
-
-        .footer-bottom a {
-            color: #0D0D0D;
-            text-decoration: none;
-        }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+        .footer-bottom a { color: #0D0D0D; text-decoration: none; }
 
         .right-side {
             width: 50%;
@@ -117,7 +92,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: #ffffff;
         }
 
@@ -125,90 +99,77 @@
             width: 80%;
             height: 80vh;
             object-fit: contain;
-            display: block;
         }
 
-        .mobile-gallery { display: none; }
-        .mobile-footer { display: none; }
-        .mobile-nav { display: none; }
-
+        /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                height: auto;
-                overflow-y: auto;
-            }
+            body { flex-direction: column; overflow-y: auto; }
+            
             .info-side {
                 width: 100%;
                 height: auto;
                 position: relative;
-                padding: 0 20px 40px;
-            }
-            .right-side {
-                display: none;
-            }
-            .back-link {
-                position: -webkit-sticky;
-                position: sticky;
-                top: 0;
+                padding: 80px 20px 40px;
                 display: block;
-                background: #ffffff;
-                padding: 40px 0 20px 0;
-                z-index: 100;
             }
+
+            .back-link {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                padding: 20px;
+                z-index: 100;
+                box-sizing: border-box;
+            }
+
+            .right-side { display: none; }
+
             .mobile-gallery {
                 display: flex;
                 flex-direction: column;
                 width: 100%;
-                padding: 20px;
+                padding: 0 20px;
                 box-sizing: border-box;
             }
             .mobile-gallery img {
                 width: 100%;
                 height: auto;
                 margin-bottom: 20px;
-                display: block;
             }
-            .info-side .footer-bottom {
-                display: none;
-            }
-            .info-side .nav-arrows {
-                display: none;
-            }
-            .mobile-nav {
-                display: flex;
-                padding: 0 20px;
-            }
+
+            .info-side .left-footer { display: none; }
+
+            .mobile-nav { display: flex; padding: 20px; border-top: 1px solid #eee; }
+
             .mobile-footer {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
-                padding: 20px 20px 50px 20px;
-                font-size: 15px;
+                padding: 20px 20px 50px;
+                font-size: 14px;
                 width: 100%;
                 box-sizing: border-box;
             }
-            .mobile-footer a {
-                color: #0D0D0D;
-                text-decoration: none;
-            }
-            .description { 
-                text-align: left; 
-                margin-top: 20px;
-            }
+            .mobile-footer a { color: #0D0D0D; text-decoration: none; }
+            .description { text-align: left; margin-top: 20px; }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-nav, .mobile-footer, .mobile-gallery { display: none; }
         }
     </style>
 </head>
 <body>
 
     <div class="info-side">
+        <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
+        
         <div>
-            <a href="index.html?p=4" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">KAA by Bill Kaulitz</span> 
-               is a perfume brand.
+                <span class="brand-name">KAA by Bill Kaulitz</span> is a perfume brand.
                 <br><br>
-              As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
+                As part of the collaboration, I served as the brand's photographer, responsible for the creative concept, styling, shooting, and post-production of visuals for social media.
             </div>
         </div>
 
@@ -217,7 +178,6 @@
                 <a href="trendyol.html">‹ Previous</a>
                 <a href="speexx.html">Next ›</a>
             </div>
-
             <div class="footer-bottom">
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
@@ -249,17 +209,8 @@
     </div>
 
     <script>
-        const images = [
-            'work32.png',
-            'work33.png',
-            'work34.png',
-            'work35.png',
- 'work36.png',
- 'work37.png',
-        ];
-
-        // ПРЕДЗАГРУЗКА: сохраняем картинки в памяти браузера
-        const preloadStore = images.map(src => {
+        const images = ['work32.png', 'work33.png', 'work34.png', 'work35.png', 'work36.png', 'work37.png'];
+        const cache = images.map(src => {
             const img = new Image();
             img.src = src;
             return img;
@@ -268,14 +219,12 @@
         let currentIndex = 0;
         const dynamicImg = document.getElementById('dynamic-work');
 
-        function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            dynamicImg.src = images[currentIndex];
+        if (dynamicImg) {
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % images.length;
+                dynamicImg.src = images[currentIndex];
+            }, 1000);
         }
-
-        // Запускаем цикл смены каждую секунду
-        setInterval(changeImage, 1000);
     </script>
-
 </body>
 </html>
