@@ -7,7 +7,8 @@
     <meta name="googlebot" content="noindex, nofollow">
     <title>Portfolio | Lisa Voronov</title>
     <meta property="og:title" content="Portfolio | Lisa Voronov">
-    <meta property="og:image" content="LV.png">
+    <meta property="og:image" content="https://lisavoronov.com/LV.png">
+    <meta property="og:url" content="https://lisavoronov.com/">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
@@ -194,6 +195,8 @@
 
                 if (!isNaN(p) && p >= 0 && p < itemsCount) {
                     currentIndex = p;
+                    // Очищаем URL от параметра ?p=..., чтобы при обновлении страница открывалась с начала
+                    window.history.replaceState({}, document.title, window.location.pathname);
                 }
 
                 const vh = window.innerHeight;
