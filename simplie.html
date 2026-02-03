@@ -41,7 +41,7 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Элементы не растягиваются на всю высоту */
+            justify-content: flex-start;
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
@@ -72,7 +72,7 @@
             display: flex; 
             flex-direction: column; 
             gap: 15px; 
-            margin-top: auto; /* Прижимает футер вниз, сохраняя gap */
+            margin-top: auto; 
         }
 
         .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
@@ -101,6 +101,13 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* СКРЫВАЕМ МОБИЛЬНЫЕ ЭЛЕМЕНТЫ НА ДЕСКТОПЕ */
+        @media (min-width: 769px) {
+            .mobile-nav, .mobile-footer {
+                display: none !important;
+            }
+        }
+
         /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow-y: auto; }
@@ -112,6 +119,9 @@
                 padding: 80px 20px 40px;
                 display: block;
             }
+
+            /* Скрываем десктопный футер на мобилках */
+            .info-side .left-footer { display: none !important; }
 
             .back-link {
                 position: fixed;
@@ -130,9 +140,14 @@
                 padding: 20px;
             }
 
-            .info-side .left-footer { display: none; }
-
-            .mobile-nav { display: flex; padding: 20px; border-top: 1px solid #eee; }
+            .mobile-nav { 
+                display: flex; 
+                padding: 20px; 
+                border-top: 1px solid #eee; 
+                justify-content: space-between;
+                font-size: 15px;
+            }
+            .mobile-nav a { text-decoration: none; color: #0D0D0D; }
 
             .mobile-footer {
                 display: flex;
