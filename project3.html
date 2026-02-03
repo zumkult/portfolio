@@ -115,11 +115,20 @@
             .info-side {
                 width: 100%;
                 height: auto;
-                position: relative;
-                padding: 40px 20px;
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background: #ffffff;
+                padding: 40px 20px 20px;
+                box-sizing: border-box;
             }
             .right-side {
                 display: none;
+            }
+            .back-link {
+                display: block;
+                padding-bottom: 20px;
             }
             .mobile-gallery {
                 display: flex;
@@ -157,7 +166,10 @@
                 color: #0D0D0D;
                 text-decoration: none;
             }
-            .description { text-align: left; }
+            .description {
+                text-align: left;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
