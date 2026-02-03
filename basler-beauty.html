@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <meta name="googlebot" content="noindex, nofollow">
     <title>BASLER BEAUTY | Lisa Voronov</title>
     <meta property="og:title" content="BASLER BEAUTY | Lisa Voronov">
-    <meta property="og:image" content="https://lisavoronov.com/LV.png">
+    <meta property="og:image" content="LV.png">
     <meta property="og:type" content="website">
     <style>
         @font-face {
@@ -32,9 +32,9 @@
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
             overflow-y: auto; 
+            scroll-behavior: smooth; /* Плавный переход при скролле */
         }
 
-        /* ДЕКСТОПНАЯ ВЕРСИЯ */
         .info-side {
             width: 50%;
             height: 100vh;
@@ -50,16 +50,19 @@
             z-index: 10;
         }
 
+        .back-link, .description, .nav-arrows, .footer-bottom {
+            font-size: 15px;
+        }
+
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            font-size: 15px;
+            line-height: 1;
         }
 
         .description {
-            font-size: 15px;
             line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
@@ -67,16 +70,42 @@
             text-align-last: left;
         }
 
-        .brand-name { font-family: 'Notbad Sans Bold', sans-serif; font-weight: bold; }
+        .brand-name {
+            font-family: 'Notbad Sans Bold', sans-serif;
+            font-weight: bold;
+        }
 
-        .left-footer { display: flex; flex-direction: column; gap: 15px; }
+        .left-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+        }
 
-        .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
-        .nav-arrows a { text-decoration: none; color: #0D0D0D; transition: opacity 0.3s; }
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0; 
+        }
+
+        .nav-arrows a {
+            text-decoration: none;
+            color: #0D0D0D;
+            transition: opacity 0.3s;
+        }
+
         .nav-arrows a:hover { opacity: 0.5; }
 
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
-        .footer-bottom a { color: #0D0D0D; text-decoration: none; }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .footer-bottom a {
+            color: #0D0D0D;
+            text-decoration: none;
+        }
 
         .content-side {
             width: 50%;
@@ -91,90 +120,94 @@
             width: 100%;
             display: block;
             margin-bottom: 20px;
+            /* Переносим рендеринг на GPU для исключения рывков */
             will-change: transform;
+            /* Плавное проявление при скролле */
             animation: fadeInScroll 0.8s ease-out forwards;
         }
 
-        @keyframes fadeInScroll { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInScroll {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ */
+        .content-side img:last-child {
+            margin-bottom: 0;
+        }
+        .mobile-footer { display: none; }
+        .mobile-nav { display: none; }
+
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-
-            /* ФИКСИРОВАННАЯ ШАПКА */
-            .mobile-top-nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background: #ffffff;
-                padding: 20px;
-                z-index: 9999;
-                box-sizing: border-box;
-                display: block; /* Показываем только на мобилках */
+            body {
+                flex-direction: column;
             }
-
             .info-side {
                 width: 100%;
                 height: auto;
-                position: relative; /* Убираем fixed/sticky здесь */
-                padding: 80px 20px 20px; /* Отступ сверху под шапку */
-                z-index: 10;
+                position: relative;
+                padding: 0 20px 40px;
             }
-
             .content-side {
                 width: 100%;
                 margin-left: 0;
+                padding: 20px;
+            }
+            .back-link {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                display: block;
+                background: #ffffff;
+                padding: 40px 0 20px 0;
+                z-index: 100;
+            }
+            .info-side .footer-bottom {
+                display: none;
+            }
+            .info-side .nav-arrows {
+                display: none;
+            }
+            .mobile-nav {
+                display: flex;
                 padding: 0 20px;
             }
-
-            .info-side .footer-bottom, .info-side .nav-arrows, .back-link {
-                display: none; /* Скрываем десктопные элементы */
-            }
-
             .mobile-footer {
                 display: flex;
                 justify-content: space-between;
-                padding: 40px 20px;
-                font-size: 14px;
+                align-items: center;
+                padding: 20px 20px 50px 20px;
+                font-size: 15px;
+                width: 100%;
+                box-sizing: border-box;
             }
-            .mobile-footer a { color: #0D0D0D; text-decoration: none; }
-            
-            .mobile-nav-arrows {
-                display: flex;
-                justify-content: space-between;
-                padding: 20px;
-                border-top: 1px solid #eee;
+            .mobile-footer a {
+                color: #0D0D0D;
+                text-decoration: none;
             }
-            .mobile-nav-arrows a { text-decoration: none; color: #0D0D0D; }
-        }
-
-        /* Скрываем мобильные элементы на десктопе */
-        @media (min-width: 769px) {
-            .mobile-top-nav, .mobile-footer, .mobile-nav-arrows { display: none; }
+            .description { 
+                text-align: left; 
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="mobile-top-nav">
-        <a href="index.html?p=6" class="back-link" style="display: block;">← Back to portfolio</a>
-    </div>
 
     <div class="info-side">
         <div>
             <a href="index.html?p=6" class="back-link">← Back to portfolio</a>
             <div class="description">
                 <span class="brand-name">BASLER BEAUTY</span> is a retailer of cosmetics and skin and hair care products. 
-                <br><br>As part of a long-term collaboration, I was responsible for product photography for the brand's official social media accounts, including styling, shooting, and post-production of images.
+                <br><br>As part of a long-term collaboration, I was responsible for product photography for the brand's official social media accounts, including styling, shooting, and post-production of images in accordance with the company's visual guidelines. My work ensured a consistent, recognizable visual style and high-quality content across all publications.
             </div>
         </div>
 
         <div class="left-footer">
             <div class="nav-arrows">
-                <a href="SPEEXX.html">‹ Previous</a>
-                <a href="ME.html">Next ›</a>
+                <a href="speexx.html">‹ Previous</a>
+                <a href="me.html">Next ›</a>
             </div>
+
             <div class="footer-bottom">
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
@@ -189,9 +222,9 @@
         <img src="work48.png" loading="lazy" decoding="async">
     </div>
 
-    <div class="mobile-nav-arrows">
-        <a href="SPEEXX.html">‹ Previous</a>
-        <a href="ME.html">Next ›</a>
+    <div class="nav-arrows mobile-nav">
+        <a href="speexx.html">‹ Previous</a>
+        <a href="me.html">Next ›</a>
     </div>
 
     <div class="mobile-footer">

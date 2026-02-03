@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
     <meta name="googlebot" content="noindex, nofollow">
     <title>SPEEXX | Lisa Voronov</title>
-    <meta property="og:title" content="SPEEXX | Lisa Voronov">
-    <meta property="og:image" content="https://lisavoronov.com/LV.png">
-    <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
         @font-face {
@@ -32,10 +29,10 @@
             font-family: 'Notbad Sans', sans-serif; 
             color: #0D0D0D;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow: hidden; 
+            height: 100vh;
         }
 
-        /* --- ДЕСКТОП --- */
         .info-side {
             width: 50%;
             height: 100vh;
@@ -51,16 +48,19 @@
             z-index: 10;
         }
 
+        .back-link, .description, .nav-arrows, .footer-bottom {
+            font-size: 15px;
+        }
+
         .back-link {
             text-decoration: none;
             color: #0D0D0D;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            font-size: 15px;
+            line-height: 1;
         }
 
         .description {
-            font-size: 15px;
             line-height: 18px; 
             max-width: 480px;
             margin-top: 40px;
@@ -68,17 +68,44 @@
             text-align-last: left;
         }
 
-        .brand-name { font-family: 'Notbad Sans Bold', sans-serif; font-weight: bold; }
+        .brand-name {
+            font-family: 'Notbad Sans Bold', sans-serif;
+            font-weight: bold;
+        }
 
-        .left-footer { display: flex; flex-direction: column; gap: 15px; }
-        .nav-arrows { display: flex; justify-content: space-between; font-size: 15px; }
-        .nav-arrows a { text-decoration: none; color: #0D0D0D; transition: opacity 0.3s; }
+        .left-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
+        }
+
+        .nav-arrows {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0; 
+        }
+
+        .nav-arrows a {
+            text-decoration: none;
+            color: #0D0D0D;
+            transition: opacity 0.3s;
+        }
+
         .nav-arrows a:hover { opacity: 0.5; }
 
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
-        .footer-bottom a { color: #0D0D0D; text-decoration: none; }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1;
+        }
 
-        /* Горизонтальный скролл десктоп */
+        .footer-bottom a {
+            color: #0D0D0D;
+            text-decoration: none;
+        }
+
+        /* Контейнер для скролла */
         .scroll-wrapper {
             width: 50%;
             margin-left: 50%;
@@ -88,6 +115,9 @@
             display: flex;
             align-items: center;
             scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            /* Плавность скролла на тачпадах */
+            scroll-behavior: auto;
         }
         .scroll-wrapper::-webkit-scrollbar { display: none; }
 
@@ -105,7 +135,9 @@
             margin-right: 60px; 
             object-fit: contain;
             flex-shrink: 0;
+            /* Перекладываем расчеты на видеокарту для плавности */
             will-change: transform;
+            /* Мягкое появление картинок */
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -114,30 +146,24 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
+        .content-side img:last-child {
+            margin-right: 0;
+        }
+        .mobile-footer { display: none; }
+        .mobile-nav { display: none; }
+
         @media (max-width: 768px) {
-            body { flex-direction: column; overflow-y: auto; }
-
-            .mobile-top-nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background: #ffffff;
-                padding: 20px;
-                z-index: 9999;
-                box-sizing: border-box;
-                display: block;
+            body {
+                flex-direction: column;
+                height: auto;
+                overflow-y: auto;
             }
-
             .info-side {
                 width: 100%;
                 height: auto;
                 position: relative;
-                padding: 80px 20px 20px; 
-                z-index: 10;
+                padding: 0 20px 40px;
             }
-
             .scroll-wrapper {
                 width: 100%;
                 margin-left: 0;
@@ -145,68 +171,75 @@
                 overflow: visible;
                 display: block;
             }
-
+            .back-link {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 0;
+                display: block;
+                background: #ffffff;
+                padding: 40px 0 20px 0;
+                z-index: 100;
+            }
             .content-side {
+                display: flex;
                 flex-direction: column;
                 padding: 20px;
                 height: auto;
             }
-
             .content-side img {
                 width: 100%;
                 height: auto;
                 margin-right: 0;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
             }
-
-            .info-side .footer-bottom, .info-side .nav-arrows, .info-side .back-link {
+            .info-side .footer-bottom {
                 display: none;
             }
-
+            .info-side .nav-arrows {
+                display: none;
+            }
+            .mobile-nav {
+                display: flex;
+                padding: 0 20px;
+            }
             .mobile-footer {
                 display: flex;
                 justify-content: space-between;
-                padding: 40px 20px;
-                font-size: 14px;
-            }
-            .mobile-footer a { color: #0D0D0D; text-decoration: none; }
-            
-            .mobile-nav-arrows {
-                display: flex;
-                justify-content: space-between;
-                padding: 20px;
-                border-top: 1px solid #eee;
+                align-items: center;
+                padding: 20px 20px 50px 20px;
                 font-size: 15px;
+                width: 100%;
+                box-sizing: border-box;
             }
-            .mobile-nav-arrows a { text-decoration: none; color: #0D0D0D; }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-top-nav, .mobile-footer, .mobile-nav-arrows { display: none; }
+            .mobile-footer a {
+                color: #0D0D0D;
+                text-decoration: none;
+            }
+            .description { 
+                text-align: left; 
+                margin-top: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="mobile-top-nav">
-        <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
-    </div>
-
     <div class="info-side">
         <div>
             <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
             <div class="description">
-                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics for LinkedIn and visuals using AI tools.
+                <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics with LinkedIn, design, collaborating with AI tools to visualize data and the creative process.
                 <br><br>
-                My work included content concepts, structuring complex data into visual formats, and creating visuals that support the brand's expert image.
+                My work included content concept, structuring complex into visual formats, and creating visuals that create the brand's expert image in professional environment.
             </div>
         </div>
 
         <div class="left-footer">
             <div class="nav-arrows">
-                <a href="KAA.html">‹ Previous</a>
-                <a href="BASLER-BEAUTY.html">Next ›</a>
+                <a href="kaa.html">‹ Previous</a>
+                <a href="basler-beauty.html">Next ›</a>
             </div>
+
             <div class="footer-bottom">
                 <a href="mailto:zumkult@gmail.com">zumkult@gmail.com</a>
                 <div class="copyright">© 2026 Lisa Voronov</div>
@@ -226,9 +259,9 @@
         </div>
     </div>
 
-    <div class="mobile-nav-arrows">
-        <a href="KAA.html">‹ Previous</a>
-        <a href="BASLER-BEAUTY.html">Next ›</a>
+    <div class="nav-arrows mobile-nav">
+        <a href="kaa.html">‹ Previous</a>
+        <a href="basler-beauty.html">Next ›</a>
     </div>
 
     <div class="mobile-footer">
@@ -238,12 +271,17 @@
 
     <script>
         const scrollContainer = document.getElementById('scrollContainer');
+        
+        // Включаем перехват скролла ТОЛЬКО на десктопе
         if (window.matchMedia("(min-width: 769px)").matches) {
             window.addEventListener('wheel', (evt) => {
+                // Отменяем стандартный вертикальный скролл, чтобы не было конфликта
                 evt.preventDefault();
-                scrollContainer.scrollLeft += evt.deltaY;
+                // Направляем движение в горизонтальную плоскость
+                scrollContainer.scrollLeft += evt.deltaY + evt.deltaX;
             }, { passive: false });
         }
     </script>
+
 </body>
 </html>
