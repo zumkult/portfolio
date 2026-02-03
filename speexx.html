@@ -42,7 +42,7 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Распределяем контент */
+            justify-content: space-between; 
             padding: 10vh 80px; 
             box-sizing: border-box;
             background: #ffffff;
@@ -56,6 +56,7 @@
             letter-spacing: 0.1em;
             font-size: 15px;
             line-height: 1;
+            display: inline-block; /* Чтобы margin-top описания работал корректно */
         }
 
         .description {
@@ -168,11 +169,10 @@
                 margin-bottom: 15px;
             }
 
-            /* Единый блок футера для мобильных */
             .mobile-bottom-wrapper {
                 display: flex;
                 flex-direction: column;
-                gap: 5px; /* РАССТОЯНИЕ 5PX */
+                gap: 5px; 
                 padding: 20px 0 50px 0;
                 border-top: 1px solid #eee;
             }
@@ -192,9 +192,8 @@
 <body>
 
     <div class="info-side">
-        <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
-        
-        <div>
+        <div class="top-group">
+            <a href="index.html?p=5" class="back-link">← Back to portfolio</a>
             <div class="description">
                 <span class="brand-name">SPEEXX</span> is an international platform for corporate training and language development. As part of this collaboration, I developed infographics for LinkedIn and visuals using AI tools.
                 <br><br>
